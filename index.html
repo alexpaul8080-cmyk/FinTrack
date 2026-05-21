@@ -420,6 +420,182 @@ tbody tr:hover td{background:rgba(74,144,217,0.05);}
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-thumb{background:rgba(74,100,180,0.18);border-radius:99px;}
 
+/* ══════════════════════════════════════
+   FINTRACK AI — CA ASSISTANT
+   ══════════════════════════════════════ */
+
+/* Floating button */
+#ai-fab {
+  position:fixed; bottom:28px; left:28px; z-index:400;
+  width:54px; height:54px; border-radius:50%;
+  background:linear-gradient(135deg,#4A90D9,#6B5B95);
+  border:none; cursor:pointer; box-shadow:0 6px 24px rgba(74,144,217,0.45);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s;
+  color:#fff; font-size:22px;
+}
+#ai-fab:hover{transform:scale(1.1);box-shadow:0 10px 32px rgba(74,144,217,0.6);}
+#ai-fab.open{transform:rotate(45deg) scale(1.05);}
+#ai-fab .fab-badge{
+  position:absolute;top:-2px;right:-2px;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--red);border:2px solid var(--bg);
+  font-size:9px;font-weight:700;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* Chat panel */
+#ai-panel {
+  position:fixed; bottom:92px; left:28px; z-index:399;
+  width:380px; max-width:calc(100vw - 40px);
+  height:560px; max-height:calc(100vh - 120px);
+  display:flex; flex-direction:column;
+  background:var(--surface,#fff);
+  border:1.5px solid var(--glass-border);
+  border-radius:22px;
+  box-shadow:0 24px 64px rgba(10,10,40,0.18),0 4px 16px rgba(10,10,40,0.1);
+  transform:scale(0.85) translateY(24px);
+  transform-origin:bottom left;
+  opacity:0; pointer-events:none;
+  transition:all 0.28s cubic-bezier(0.34,1.56,0.64,1);
+  overflow:hidden;
+}
+#ai-panel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all;}
+html.dark #ai-panel{background:#111;border-color:rgba(255,255,255,0.08);box-shadow:0 24px 64px rgba(0,0,0,0.7);}
+
+/* Panel header */
+#ai-header{
+  display:flex;align-items:center;gap:10px;
+  padding:16px 18px;
+  background:linear-gradient(135deg,#4A90D9,#6B5B95);
+  flex-shrink:0;
+}
+.ai-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.ai-header-info .ai-name{font-size:14px;font-weight:700;color:#fff;}
+.ai-header-info .ai-status{
+  font-size:11px;color:rgba(255,255,255,0.7);
+  display:flex;align-items:center;gap:5px;
+}
+.ai-status-dot{
+  width:6px;height:6px;border-radius:50%;background:#50e3c2;
+  animation:ai-pulse 2s ease-in-out infinite;
+}
+@keyframes ai-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+#ai-close-btn{
+  margin-left:auto;background:rgba(255,255,255,0.15);border:none;
+  color:#fff;cursor:pointer;width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+  transition:background 0.15s;flex-shrink:0;
+}
+#ai-close-btn:hover{background:rgba(255,255,255,0.3);}
+
+/* Quick prompts */
+#ai-quick{
+  display:flex;gap:6px;padding:10px 14px;flex-wrap:wrap;
+  border-bottom:1px solid var(--line,#eee);
+  background:rgba(74,144,217,0.04);
+  flex-shrink:0;
+}
+html.dark #ai-quick{border-bottom-color:rgba(255,255,255,0.06);background:rgba(74,144,217,0.06);}
+.ai-quick-btn{
+  font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;
+  border:1px solid rgba(74,144,217,0.25);background:rgba(74,144,217,0.08);
+  color:var(--blue,#4A90D9);cursor:pointer;
+  font-family:var(--font);transition:all 0.15s;white-space:nowrap;
+}
+.ai-quick-btn:hover{background:var(--blue,#4A90D9);color:#fff;border-color:var(--blue);}
+
+/* Messages */
+#ai-messages{
+  flex:1;overflow-y:auto;padding:14px;
+  display:flex;flex-direction:column;gap:10px;
+  scroll-behavior:smooth;
+}
+#ai-messages::-webkit-scrollbar{width:4px;}
+#ai-messages::-webkit-scrollbar-thumb{background:rgba(74,100,180,0.15);border-radius:4px;}
+
+.ai-msg{display:flex;gap:8px;max-width:100%;animation:msgIn 0.22s ease both;}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.ai-msg.user{flex-direction:row-reverse;}
+
+.ai-msg .bubble{
+  padding:10px 13px;border-radius:16px;font-size:13px;line-height:1.6;
+  max-width:86%;word-break:break-word;
+}
+.ai-msg.bot .bubble{
+  background:var(--line-2,#f2f2f2);color:var(--ink-2,#1a1a1a);
+  border-radius:4px 16px 16px 16px;
+}
+html.dark .ai-msg.bot .bubble{background:rgba(255,255,255,0.07);color:var(--ink-2);}
+.ai-msg.user .bubble{
+  background:linear-gradient(135deg,#4A90D9,#6B5B95);
+  color:#fff;border-radius:16px 4px 16px 16px;
+}
+.ai-msg .msg-icon{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+  margin-top:2px;
+}
+.ai-msg.bot .msg-icon{background:linear-gradient(135deg,#4A90D9,#6B5B95);}
+.ai-msg.user .msg-icon{background:linear-gradient(135deg,var(--red,#C8102E),var(--red-dark,#A50D26));}
+
+/* Typing indicator */
+.ai-typing .bubble{
+  background:var(--line-2,#f2f2f2);
+  border-radius:4px 16px 16px 16px;
+  padding:12px 16px;
+}
+html.dark .ai-typing .bubble{background:rgba(255,255,255,0.07);}
+.typing-dots{display:flex;gap:4px;align-items:center;}
+.typing-dots span{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--muted,#6B6B6B);
+  animation:dot-bounce 1.2s ease-in-out infinite;
+}
+.typing-dots span:nth-child(2){animation-delay:0.15s;}
+.typing-dots span:nth-child(3){animation-delay:0.30s;}
+@keyframes dot-bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+
+/* Input bar */
+#ai-input-row{
+  display:flex;gap:8px;padding:12px 14px;
+  border-top:1px solid var(--line,#eee);
+  background:var(--surface,#fff);
+  flex-shrink:0;
+}
+html.dark #ai-input-row{border-top-color:rgba(255,255,255,0.06);background:#111;}
+#ai-input{
+  flex:1;padding:9px 14px;border-radius:999px;
+  border:1.5px solid var(--line,#eee);
+  background:var(--surface-2,#f6f4f0);
+  color:var(--ink-2);font-size:13px;font-family:var(--font);
+  outline:none;transition:border-color 0.18s;
+}
+html.dark #ai-input{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);color:var(--ink-2);}
+#ai-input:focus{border-color:var(--blue,#4A90D9);}
+#ai-input::placeholder{color:var(--muted-2,#9B9B9B);}
+#ai-send{
+  width:36px;height:36px;border-radius:50%;border:none;
+  background:linear-gradient(135deg,#4A90D9,#6B5B95);
+  color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:transform 0.2s,box-shadow 0.2s;flex-shrink:0;
+  box-shadow:0 3px 10px rgba(74,144,217,0.35);
+}
+#ai-send:hover{transform:scale(1.08);box-shadow:0 5px 16px rgba(74,144,217,0.5);}
+#ai-send:active{transform:scale(0.95);}
+#ai-send svg{width:16px;height:16px;}
+
+/* Markdown-like formatting in bubbles */
+.bubble strong{font-weight:700;}
+.bubble em{font-style:italic;}
+.bubble br{display:block;margin:2px 0;}
+
+
 /* ── DARK MODE VARIABLES ── */
 html.dark {
   --red:#ff4d6d;--red-dark:#c9184a;--red-soft:rgba(255,77,109,0.08);
@@ -3123,6 +3299,309 @@ function syncThemeToggle() {
     chk.checked = document.documentElement.classList.contains('dark');
   }
 }
+
+// ══════════════════════════════════════
+// FINTRACK AI — GEMINI CA ASSISTANT
+// ══════════════════════════════════════
+const GEMINI_KEY   = 'AIzaSyB5ZEhstzT90g6Hz5qLvU_vcVoqYdgUZTs';
+const GEMINI_URL   = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=' + GEMINI_KEY;
+let aiOpen         = false;
+let aiHistory      = [];   // {role, parts} for multi-turn
+let aiTyping       = false;
+
+// ── Panel toggle ──
+function toggleAiPanel(){
+  aiOpen = !aiOpen;
+  document.getElementById('ai-panel').classList.toggle('open', aiOpen);
+  document.getElementById('ai-fab').classList.toggle('open', aiOpen);
+  document.getElementById('ai-fab-icon').textContent = aiOpen ? '✕' : '✦';
+  if(aiOpen && aiHistory.length === 0) showWelcome();
+  if(aiOpen) setTimeout(()=>document.getElementById('ai-input').focus(), 300);
+}
+
+// ── Welcome message ──
+function showWelcome(){
+  const name = currentUser?.name?.split(' ')[0] || 'there';
+  addBotMsg(`👋 Hi ${name}! I'm your personal CA — a Chartered Accountant powered by AI.
+
+I can see all your FinTrack data and give you real advice. Ask me anything — from *"Where am I overspending?"* to *"How do I pay off my loans faster?"*
+
+What would you like to know? 💼`);
+}
+
+// ── Quick prompt ──
+function askQuick(q){
+  document.getElementById('ai-input').value = q;
+  sendAiMessage();
+}
+
+// ── Build financial context snapshot ──
+function buildContext(){
+  const now     = new Date();
+  const ym      = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  const monthName = now.toLocaleString('default',{month:'long',year:'numeric'});
+
+  const totalBal  = S.accounts.reduce((s,a)=>s+a.balance,0);
+  const totalInc  = S.transactions.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
+  const totalExp  = S.transactions.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+  const monthInc  = S.transactions.filter(t=>t.type==='income'&&t.date.startsWith(ym)).reduce((s,t)=>s+t.amount,0);
+  const monthExp  = S.transactions.filter(t=>t.type==='expense'&&t.date.startsWith(ym)).reduce((s,t)=>s+t.amount,0);
+
+  // Top spending categories this month
+  const catSpend = {};
+  S.transactions.filter(t=>t.type==='expense'&&t.date.startsWith(ym)).forEach(t=>{
+    const n = t.catName||'Uncategorized';
+    catSpend[n] = (catSpend[n]||0) + t.amount;
+  });
+  const topCats = Object.entries(catSpend).sort((a,b)=>b[1]-a[1]).slice(0,8)
+    .map(([n,v])=>`${n}: ₹${v.toLocaleString('en-IN')}`).join(', ');
+
+  // Budget status
+  const budgetStatus = S.budgets.map(b=>{
+    const cat = S.categories.find(c=>c.id===b.catId)||{name:'Unknown'};
+    const spent = S.transactions.filter(t=>t.type==='expense'&&t.catId===b.catId&&t.date.startsWith(ym))
+                  .reduce((s,t)=>s+t.amount,0);
+    const pct = b.amount>0?Math.round(spent/b.amount*100):0;
+    return `${cat.name}: spent ₹${spent.toLocaleString('en-IN')} of ₹${b.amount.toLocaleString('en-IN')} budget (${pct}%)`;
+  }).join('; ') || 'No budgets set';
+
+  // Goals
+  const goalsCtx = S.goals.map(g=>{
+    const pct = g.target>0?Math.round(g.saved/g.target*100):0;
+    return `${g.name}: saved ₹${(g.saved||0).toLocaleString('en-IN')} of ₹${g.target.toLocaleString('en-IN')} (${pct}%)${g.monthly?', saving ₹'+g.monthly.toLocaleString('en-IN')+'/month':''}`;
+  }).join('; ') || 'No goals set';
+
+  // Loans
+  const loansCtx = S.loans.map(l=>{
+    const paid = (l.emisPaid||0)*l.emi;
+    const out  = Math.max(l.total-paid,0);
+    const rem  = l.totalEmis&&l.emisPaid ? Math.max(l.totalEmis-l.emisPaid,0) : null;
+    return `${l.name} (${l.lender||'Unknown lender'}): total ₹${l.total.toLocaleString('en-IN')}, outstanding ₹${out.toLocaleString('en-IN')}, EMI ₹${l.emi.toLocaleString('en-IN')}/month${rem!==null?', '+rem+' EMIs remaining':''}${l.rate?', '+l.rate+'% p.a.':''}`;
+  }).join('; ') || 'No loans';
+
+  // Accounts
+  const accCtx = S.accounts.map(a=>`${a.name} (${a.type}): ₹${a.balance.toLocaleString('en-IN')}`).join(', ') || 'No accounts added';
+
+  // Recent 15 transactions
+  const recentTxns = S.transactions.slice(0,15).map(t=>
+    `${t.date} ${t.type==='income'?'IN':'OUT'} ₹${t.amount.toLocaleString('en-IN')} - ${t.desc} (${t.catName||'?'}, ${t.accName||'?'})`
+  ).join('
+') || 'No transactions';
+
+  const savingsRate = monthInc>0 ? Math.round((monthInc-monthExp)/monthInc*100) : 0;
+
+  return `You are a highly experienced Chartered Accountant (CA) and personal finance advisor in India. You are speaking with ${currentUser?.name||'the user'} inside their FinTrack personal finance app.
+
+You have access to their LIVE financial data. Analyse it carefully and give SPECIFIC, ACTIONABLE advice. Use ₹ for currency. Be conversational, warm, and clear — like a trusted CA who knows their finances inside-out. Use bullet points and bold text where helpful. Keep responses concise but thorough.
+
+═══ LIVE FINANCIAL DATA as of ${monthName} ═══
+
+ACCOUNTS (${S.accounts.length} total):
+${accCtx}
+Net Worth: ₹${totalBal.toLocaleString('en-IN')}
+
+${monthName.toUpperCase()} SUMMARY:
+• Income this month: ₹${monthInc.toLocaleString('en-IN')}
+• Expenses this month: ₹${monthExp.toLocaleString('en-IN')}
+• Savings this month: ₹${Math.max(monthInc-monthExp,0).toLocaleString('en-IN')}
+• Savings rate: ${savingsRate}%
+
+ALL-TIME:
+• Total income recorded: ₹${totalInc.toLocaleString('en-IN')}
+• Total expenses recorded: ₹${totalExp.toLocaleString('en-IN')}
+• Total transactions: ${S.transactions.length}
+
+TOP SPENDING CATEGORIES (this month):
+${topCats || 'No expense data this month'}
+
+BUDGET STATUS (this month):
+${budgetStatus}
+
+SAVINGS GOALS:
+${goalsCtx}
+
+LOANS & EMIs:
+${loansCtx}
+
+RECENT TRANSACTIONS (last 15):
+${recentTxns}
+
+═══════════════════════════════════════════
+
+Always reference their actual numbers. If data is missing or zero, acknowledge it and give general advice. Never make up numbers.`;
+}
+
+// ── Send message ──
+async function sendAiMessage(){
+  if(aiTyping) return;
+  const input = document.getElementById('ai-input');
+  const msg   = input.value.trim();
+  if(!msg) return;
+  input.value = '';
+
+  addUserMsg(msg);
+  showTyping();
+  aiTyping = true;
+
+  // Build conversation with system context as first turn
+  const systemCtx = buildContext();
+  const messages  = [
+    { role:'user',  parts:[{text: systemCtx + '
+
+User: ' + msg}] }
+  ];
+
+  // If there's history, append it properly (skip first system message on subsequent turns)
+  if(aiHistory.length > 0){
+    const conv = [
+      { role:'user', parts:[{text: systemCtx}] },
+      { role:'model', parts:[{text:'Understood. I have reviewed all the financial data and I am ready to provide expert CA advice.'}] },
+      ...aiHistory,
+      { role:'user', parts:[{text: msg}] }
+    ];
+    messages.splice(0, messages.length, ...conv);
+  }
+
+  try{
+    const res = await fetch(GEMINI_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        contents: messages,
+        generationConfig:{
+          temperature: 0.7,
+          maxOutputTokens: 1024,
+          topP: 0.9,
+        },
+        safetySettings:[
+          {category:'HARM_CATEGORY_HARASSMENT',      threshold:'BLOCK_NONE'},
+          {category:'HARM_CATEGORY_HATE_SPEECH',     threshold:'BLOCK_NONE'},
+          {category:'HARM_CATEGORY_DANGEROUS_CONTENT',threshold:'BLOCK_NONE'},
+        ]
+      })
+    });
+
+    if(!res.ok){
+      const err = await res.json();
+      throw new Error(err?.error?.message || 'API error '+res.status);
+    }
+
+    const data  = await res.json();
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I couldn't generate a response. Please try again.';
+
+    hideTyping();
+    addBotMsg(reply);
+
+    // Keep history for context (last 10 exchanges)
+    aiHistory.push({role:'user',  parts:[{text:msg}]});
+    aiHistory.push({role:'model', parts:[{text:reply}]});
+    if(aiHistory.length > 20) aiHistory = aiHistory.slice(-20);
+
+  } catch(e) {
+    hideTyping();
+    addBotMsg('⚠️ Sorry, I ran into an issue: ' + e.message + '
+
+Please check your internet connection and try again.');
+    console.error('Gemini error:', e);
+  }
+
+  aiTyping = false;
+}
+
+// ── UI helpers ──
+function addUserMsg(text){
+  const msgs = document.getElementById('ai-messages');
+  const div  = document.createElement('div');
+  div.className = 'ai-msg user';
+  div.innerHTML = `<div class="msg-icon">👤</div><div class="bubble">${escHtml(text)}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function addBotMsg(text){
+  const msgs = document.getElementById('ai-messages');
+  const div  = document.createElement('div');
+  div.className = 'ai-msg bot';
+  div.innerHTML = `<div class="msg-icon" style="color:#fff;font-size:13px;">🧑‍💼</div><div class="bubble">${formatAiText(text)}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping(){
+  const msgs = document.getElementById('ai-messages');
+  const div  = document.createElement('div');
+  div.className = 'ai-msg bot ai-typing';
+  div.id = 'ai-typing-indicator';
+  div.innerHTML = `<div class="msg-icon" style="color:#fff;font-size:13px;">🧑‍💼</div><div class="bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function hideTyping(){
+  document.getElementById('ai-typing-indicator')?.remove();
+}
+
+function formatAiText(text){
+  return text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/^#{1,3}\s+(.+)$/gm,'<strong>$1</strong>')
+    .replace(/^[•\-]\s+(.+)$/gm,'• $1')
+    .replace(/\n/g,'<br>');
+}
+
+function escHtml(t){
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 </script>
+
+<!-- ══════ FINTRACK AI ASSISTANT ══════ -->
+<!-- Floating Action Button -->
+<button id="ai-fab" onclick="toggleAiPanel()" title="Ask FinTrack AI">
+  <span id="ai-fab-icon">✦</span>
+  <span class="fab-badge" id="ai-badge" style="display:none">!</span>
+</button>
+
+<!-- Chat Panel -->
+<div id="ai-panel">
+  <!-- Header -->
+  <div id="ai-header">
+    <div class="ai-avatar">🧑‍💼</div>
+    <div class="ai-header-info">
+      <div class="ai-name">FinTrack AI — Your CA</div>
+      <div class="ai-status">
+        <span class="ai-status-dot"></span>
+        Online · Powered by Gemini
+      </div>
+    </div>
+    <button id="ai-close-btn" onclick="toggleAiPanel()">✕</button>
+  </div>
+
+  <!-- Quick prompts -->
+  <div id="ai-quick">
+    <button class="ai-quick-btn" onclick="askQuick('How am I doing this month?')">This month</button>
+    <button class="ai-quick-btn" onclick="askQuick('Where am I overspending?')">Overspending</button>
+    <button class="ai-quick-btn" onclick="askQuick('How can I save more?')">Save more</button>
+    <button class="ai-quick-btn" onclick="askQuick('Analyse my loans')">Loans</button>
+    <button class="ai-quick-btn" onclick="askQuick('Am I on track with my goals?')">Goals</button>
+    <button class="ai-quick-btn" onclick="askQuick('Give me a full financial health report')">Health report</button>
+  </div>
+
+  <!-- Messages -->
+  <div id="ai-messages"></div>
+
+  <!-- Input -->
+  <div id="ai-input-row">
+    <input id="ai-input" type="text" placeholder="Ask anything about your finances…"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAiMessage();}">
+    <button id="ai-send" onclick="sendAiMessage()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
 </body>
 </html>
