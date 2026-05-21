@@ -3303,8 +3303,8 @@ function syncThemeToggle() {
 // ══════════════════════════════════════
 // FINTRACK AI — GEMINI CA ASSISTANT
 // ══════════════════════════════════════
-const GEMINI_KEY   = 'AIzaSyB5ZEhstzT90g6Hz5qLvU_vcVoqYdgUZTs';
-const GEMINI_URL   = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=' + GEMINI_KEY;
+const GEMINI_KEY   = 'AIzaSyBSf0NSXfqClU37OUlNw1kUljbQy_PGbMI';
+const GEMINI_URL   = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY;
 let aiOpen         = false;
 let aiHistory      = [];   // {role, parts} for multi-turn
 let aiTyping       = false;
@@ -3337,100 +3337,88 @@ function askQuick(q){
 
 // ── Build financial context snapshot ──
 function buildContext(){
-  const now     = new Date();
-  const ym      = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-  const monthName = now.toLocaleString('default',{month:'long',year:'numeric'});
+  const now      = new Date();
+  const ym       = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  const monthName= now.toLocaleString('default',{month:'long',year:'numeric'});
 
-  const totalBal  = S.accounts.reduce((s,a)=>s+a.balance,0);
-  const totalInc  = S.transactions.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
-  const totalExp  = S.transactions.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
-  const monthInc  = S.transactions.filter(t=>t.type==='income'&&t.date.startsWith(ym)).reduce((s,t)=>s+t.amount,0);
-  const monthExp  = S.transactions.filter(t=>t.type==='expense'&&t.date.startsWith(ym)).reduce((s,t)=>s+t.amount,0);
+  const totalBal = S.accounts.reduce((s,a)=>s+a.balance,0);
+  const totalInc = S.transactions.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
+  const totalExp = S.transactions.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+  const monthInc = S.transactions.filter(t=>t.type==='income'&&t.date.startsWith(ym)).reduce((s,t)=>s+t.amount,0);
+  const monthExp = S.transactions.filter(t=>t.type==='expense'&&t.date.startsWith(ym)).reduce((s,t)=>s+t.amount,0);
 
-  // Top spending categories this month
   const catSpend = {};
   S.transactions.filter(t=>t.type==='expense'&&t.date.startsWith(ym)).forEach(t=>{
-    const n = t.catName||'Uncategorized';
-    catSpend[n] = (catSpend[n]||0) + t.amount;
+    const n=t.catName||'Uncategorized';
+    catSpend[n]=(catSpend[n]||0)+t.amount;
   });
   const topCats = Object.entries(catSpend).sort((a,b)=>b[1]-a[1]).slice(0,8)
-    .map(([n,v])=>`${n}: ₹${v.toLocaleString('en-IN')}`).join(', ');
+    .map(([n,v])=>n+': Rs.'+v.toLocaleString('en-IN')).join(', ') || 'No expense data';
 
-  // Budget status
   const budgetStatus = S.budgets.map(b=>{
-    const cat = S.categories.find(c=>c.id===b.catId)||{name:'Unknown'};
-    const spent = S.transactions.filter(t=>t.type==='expense'&&t.catId===b.catId&&t.date.startsWith(ym))
-                  .reduce((s,t)=>s+t.amount,0);
-    const pct = b.amount>0?Math.round(spent/b.amount*100):0;
-    return `${cat.name}: spent ₹${spent.toLocaleString('en-IN')} of ₹${b.amount.toLocaleString('en-IN')} budget (${pct}%)`;
-  }).join('; ') || 'No budgets set';
+    const cat=S.categories.find(c=>c.id===b.catId)||{name:'Unknown'};
+    const spent=S.transactions.filter(t=>t.type==='expense'&&t.catId===b.catId&&t.date.startsWith(ym)).reduce((s,t)=>s+t.amount,0);
+    const pct=b.amount>0?Math.round(spent/b.amount*100):0;
+    return cat.name+': spent Rs.'+spent.toLocaleString('en-IN')+' of Rs.'+b.amount.toLocaleString('en-IN')+' ('+pct+'%)';
+  }).join(' | ') || 'No budgets set';
 
-  // Goals
   const goalsCtx = S.goals.map(g=>{
-    const pct = g.target>0?Math.round(g.saved/g.target*100):0;
-    return `${g.name}: saved ₹${(g.saved||0).toLocaleString('en-IN')} of ₹${g.target.toLocaleString('en-IN')} (${pct}%)${g.monthly?', saving ₹'+g.monthly.toLocaleString('en-IN')+'/month':''}`;
-  }).join('; ') || 'No goals set';
+    const pct=g.target>0?Math.round(g.saved/g.target*100):0;
+    return g.name+': saved Rs.'+(g.saved||0).toLocaleString('en-IN')+' of Rs.'+g.target.toLocaleString('en-IN')+' ('+pct+'%)'+(g.monthly?', saving Rs.'+g.monthly.toLocaleString('en-IN')+'/month':'');
+  }).join(' | ') || 'No goals set';
 
-  // Loans
   const loansCtx = S.loans.map(l=>{
-    const paid = (l.emisPaid||0)*l.emi;
-    const out  = Math.max(l.total-paid,0);
-    const rem  = l.totalEmis&&l.emisPaid ? Math.max(l.totalEmis-l.emisPaid,0) : null;
-    return `${l.name} (${l.lender||'Unknown lender'}): total ₹${l.total.toLocaleString('en-IN')}, outstanding ₹${out.toLocaleString('en-IN')}, EMI ₹${l.emi.toLocaleString('en-IN')}/month${rem!==null?', '+rem+' EMIs remaining':''}${l.rate?', '+l.rate+'% p.a.':''}`;
-  }).join('; ') || 'No loans';
+    const paid=(l.emisPaid||0)*l.emi;
+    const out=Math.max(l.total-paid,0);
+    const rem=l.totalEmis&&l.emisPaid?Math.max(l.totalEmis-l.emisPaid,0):null;
+    return l.name+' ('+(l.lender||'Unknown lender')+'): total Rs.'+l.total.toLocaleString('en-IN')+', outstanding Rs.'+out.toLocaleString('en-IN')+', EMI Rs.'+l.emi.toLocaleString('en-IN')+'/month'+(rem!==null?', '+rem+' EMIs remaining':'')+(l.rate?', '+l.rate+'% p.a.':'');
+  }).join(' | ') || 'No loans';
 
-  // Accounts
-  const accCtx = S.accounts.map(a=>`${a.name} (${a.type}): ₹${a.balance.toLocaleString('en-IN')}`).join(', ') || 'No accounts added';
+  const accCtx = S.accounts.map(a=>a.name+' ('+a.type+'): Rs.'+a.balance.toLocaleString('en-IN')).join(', ') || 'No accounts';
 
-  // Recent 15 transactions
   const recentTxns = S.transactions.slice(0,15).map(t=>
-    `${t.date} ${t.type==='income'?'IN':'OUT'} ₹${t.amount.toLocaleString('en-IN')} - ${t.desc} (${t.catName||'?'}, ${t.accName||'?'})`
-  ).join('
-') || 'No transactions';
+    t.date+' '+(t.type==='income'?'IN':'OUT')+' Rs.'+t.amount.toLocaleString('en-IN')+' - '+t.desc+' ('+( t.catName||'?')+', '+(t.accName||'?')+')'
+  ).join(' | ') || 'No transactions';
 
-  const savingsRate = monthInc>0 ? Math.round((monthInc-monthExp)/monthInc*100) : 0;
+  const savingsRate = monthInc>0?Math.round((monthInc-monthExp)/monthInc*100):0;
+  const userName   = currentUser ? currentUser.name : 'User';
 
-  return `You are a highly experienced Chartered Accountant (CA) and personal finance advisor in India. You are speaking with ${currentUser?.name||'the user'} inside their FinTrack personal finance app.
-
-You have access to their LIVE financial data. Analyse it carefully and give SPECIFIC, ACTIONABLE advice. Use ₹ for currency. Be conversational, warm, and clear — like a trusted CA who knows their finances inside-out. Use bullet points and bold text where helpful. Keep responses concise but thorough.
-
-═══ LIVE FINANCIAL DATA as of ${monthName} ═══
-
-ACCOUNTS (${S.accounts.length} total):
-${accCtx}
-Net Worth: ₹${totalBal.toLocaleString('en-IN')}
-
-${monthName.toUpperCase()} SUMMARY:
-• Income this month: ₹${monthInc.toLocaleString('en-IN')}
-• Expenses this month: ₹${monthExp.toLocaleString('en-IN')}
-• Savings this month: ₹${Math.max(monthInc-monthExp,0).toLocaleString('en-IN')}
-• Savings rate: ${savingsRate}%
-
-ALL-TIME:
-• Total income recorded: ₹${totalInc.toLocaleString('en-IN')}
-• Total expenses recorded: ₹${totalExp.toLocaleString('en-IN')}
-• Total transactions: ${S.transactions.length}
-
-TOP SPENDING CATEGORIES (this month):
-${topCats || 'No expense data this month'}
-
-BUDGET STATUS (this month):
-${budgetStatus}
-
-SAVINGS GOALS:
-${goalsCtx}
-
-LOANS & EMIs:
-${loansCtx}
-
-RECENT TRANSACTIONS (last 15):
-${recentTxns}
-
-═══════════════════════════════════════════
-
-Always reference their actual numbers. If data is missing or zero, acknowledge it and give general advice. Never make up numbers.`;
+  const lines = [
+    'You are a highly experienced Chartered Accountant (CA) and personal finance advisor in India.',
+    'You are speaking with '+userName+' inside their FinTrack personal finance app.',
+    'You have access to their LIVE financial data. Analyse it carefully and give SPECIFIC, ACTIONABLE advice.',
+    'Use Rs. for currency (Indian Rupees). Be conversational, warm and clear like a trusted CA.',
+    'Use bullet points and bold text (with **text**) where helpful. Keep responses concise but thorough.',
+    '',
+    '=== LIVE FINANCIAL DATA as of '+monthName+' ===',
+    '',
+    'ACCOUNTS ('+S.accounts.length+' total): '+accCtx,
+    'Net Worth: Rs.'+totalBal.toLocaleString('en-IN'),
+    '',
+    monthName.toUpperCase()+' SUMMARY:',
+    '- Income this month: Rs.'+monthInc.toLocaleString('en-IN'),
+    '- Expenses this month: Rs.'+monthExp.toLocaleString('en-IN'),
+    '- Savings this month: Rs.'+Math.max(monthInc-monthExp,0).toLocaleString('en-IN'),
+    '- Savings rate: '+savingsRate+'%',
+    '',
+    'ALL-TIME: Total income: Rs.'+totalInc.toLocaleString('en-IN')+', Total expenses: Rs.'+totalExp.toLocaleString('en-IN')+', Transactions: '+S.transactions.length,
+    '',
+    'TOP SPENDING CATEGORIES (this month): '+topCats,
+    '',
+    'BUDGET STATUS: '+budgetStatus,
+    '',
+    'SAVINGS GOALS: '+goalsCtx,
+    '',
+    'LOANS & EMIs: '+loansCtx,
+    '',
+    'RECENT TRANSACTIONS (last 15): '+recentTxns,
+    '',
+    '=== END OF DATA ===',
+    '',
+    'Always reference their actual numbers. If data is missing or zero, acknowledge it and give general advice.',
+  ];
+  return lines.join('\n');
 }
-
 // ── Send message ──
 async function sendAiMessage(){
   if(aiTyping) return;
@@ -3446,9 +3434,7 @@ async function sendAiMessage(){
   // Build conversation with system context as first turn
   const systemCtx = buildContext();
   const messages  = [
-    { role:'user',  parts:[{text: systemCtx + '
-
-User: ' + msg}] }
+    { role:'user',  parts:[{text: systemCtx + '\n\nUser: ' + msg}] }
   ];
 
   // If there's history, append it properly (skip first system message on subsequent turns)
@@ -3487,7 +3473,7 @@ User: ' + msg}] }
     }
 
     const data  = await res.json();
-    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I couldn't generate a response. Please try again.';
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I could not generate a response. Please try again.";
 
     hideTyping();
     addBotMsg(reply);
@@ -3499,9 +3485,7 @@ User: ' + msg}] }
 
   } catch(e) {
     hideTyping();
-    addBotMsg('⚠️ Sorry, I ran into an issue: ' + e.message + '
-
-Please check your internet connection and try again.');
+    addBotMsg('⚠️ Sorry, I ran into an issue: ' + e.message + '\n\nPlease check your internet connection and try again.');
     console.error('Gemini error:', e);
   }
 
