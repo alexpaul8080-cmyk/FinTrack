@@ -3303,8 +3303,8 @@ function syncThemeToggle() {
 // ══════════════════════════════════════
 // FINTRACK AI — GEMINI CA ASSISTANT
 // ══════════════════════════════════════
-const GEMINI_KEY   = 'AIzaSyBSf0NSXfqClU37OUlNw1kUIjbQy_PGbMI';
-const GEMINI_URL   = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY;
+const GROQ_KEY = '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';
+const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 let aiOpen         = false;
 let aiHistory      = [];   // {role, parts} for multi-turn
 let aiTyping       = false;
@@ -3431,39 +3431,27 @@ async function sendAiMessage(){
   showTyping();
   aiTyping = true;
 
-  // Build conversation with system context as first turn
-  const systemCtx = buildContext();
-  const messages  = [
-    { role:'user',  parts:[{text: systemCtx + '\n\nUser: ' + msg}] }
-  ];
-
-  // If there's history, append it properly (skip first system message on subsequent turns)
-  if(aiHistory.length > 0){
-    const conv = [
-      { role:'user', parts:[{text: systemCtx}] },
-      { role:'model', parts:[{text:'Understood. I have reviewed all the financial data and I am ready to provide expert CA advice.'}] },
-      ...aiHistory,
-      { role:'user', parts:[{text: msg}] }
-    ];
-    messages.splice(0, messages.length, ...conv);
-  }
+  // Messages built inside try block for Groq
 
   try{
-    const res = await fetch(GEMINI_URL, {
+    // Build messages array for Groq (OpenAI format)
+    const groqMessages = [{role:'system', content: buildContext()}];
+    aiHistory.forEach(h=>{
+      groqMessages.push({role: h.role==='model'?'assistant':h.role, content: h.parts[0].text});
+    });
+    groqMessages.push({role:'user', content: msg});
+
+    const res = await fetch(GROQ_URL, {
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':'Bearer '+GROQ_KEY
+      },
       body: JSON.stringify({
-        contents: messages,
-        generationConfig:{
-          temperature: 0.7,
-          maxOutputTokens: 1024,
-          topP: 0.9,
-        },
-        safetySettings:[
-          {category:'HARM_CATEGORY_HARASSMENT',      threshold:'BLOCK_NONE'},
-          {category:'HARM_CATEGORY_HATE_SPEECH',     threshold:'BLOCK_NONE'},
-          {category:'HARM_CATEGORY_DANGEROUS_CONTENT',threshold:'BLOCK_NONE'},
-        ]
+        model: 'llama-3.3-70b-versatile',
+        messages: groqMessages,
+        temperature: 0.7,
+        max_tokens: 1024,
       })
     });
 
@@ -3473,7 +3461,7 @@ async function sendAiMessage(){
     }
 
     const data  = await res.json();
-    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I could not generate a response. Please try again.";
+    const reply = data?.choices?.[0]?.message?.content || "Sorry, I could not generate a response. Please try again.";
 
     hideTyping();
     addBotMsg(reply);
@@ -3556,7 +3544,7 @@ function escHtml(t){
       <div class="ai-name">FinTrack AI — Your CA</div>
       <div class="ai-status">
         <span class="ai-status-dot"></span>
-        Online · Powered by Gemini
+        Online · Powered by Groq AI
       </div>
     </div>
     <button id="ai-close-btn" onclick="toggleAiPanel()">✕</button>
