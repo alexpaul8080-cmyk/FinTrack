@@ -419,6 +419,210 @@ tbody tr:hover td{background:rgba(74,144,217,0.05);}
 @media(max-width:580px){.kpi-grid{grid-template-columns:1fr;}.fg-row{grid-template-columns:1fr;}.hero-stats{flex-wrap:wrap;gap:16px;}}
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-thumb{background:rgba(74,100,180,0.18);border-radius:99px;}
+
+/* ── DARK MODE VARIABLES ── */
+html.dark {
+  --red:#ff4d6d;--red-dark:#c9184a;--red-soft:rgba(255,77,109,0.08);
+  --gold:#ffd166;--blue:#4cc9f0;--green:#06d6a0;--purple:#b5838d;
+  --ink:#f8f9fa;--ink-2:#e9ecef;--ink-3:#adb5bd;
+  --muted:#6c757d;--muted-2:#868e96;
+  --line:#2d2d2d;--line-2:#222;
+  --bg:#0d0d0d;--surface:#161616;--surface-2:#1e1e1e;
+  --shadow-2:0 4px 12px rgba(0,0,0,0.4),0 1px 3px rgba(0,0,0,0.3);
+  --shadow-3:0 12px 32px rgba(0,0,0,0.6),0 2px 6px rgba(0,0,0,0.4);
+  --shadow-red:0 8px 24px rgba(255,77,109,0.25);
+  --glass-bg:rgba(22,22,22,0.75);
+  --glass-border:rgba(255,255,255,0.07);
+  --glass-shadow:0 8px 32px rgba(0,0,0,0.5),0 2px 8px rgba(0,0,0,0.3);
+  --glass-inset:inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+/* Dark mode overrides */
+html.dark body {
+  background: var(--bg);
+  color: var(--ink-2);
+}
+html.dark body::before {
+  background:
+    radial-gradient(ellipse 900px 700px at 5% 10%,rgba(76,201,240,0.06) 0%,transparent 55%),
+    radial-gradient(ellipse 700px 600px at 95% 85%,rgba(181,131,141,0.05) 0%,transparent 55%),
+    radial-gradient(ellipse 600px 500px at 50% 50%,rgba(255,77,109,0.03) 0%,transparent 55%),
+    linear-gradient(145deg,#0d0d0d 0%,#111118 50%,#0d0d12 100%);
+}
+html.dark .masthead {
+  background:rgba(13,13,13,0.85);
+  border-bottom-color:rgba(255,255,255,0.06);
+  box-shadow:0 1px 0 rgba(255,255,255,0.04);
+}
+html.dark .glass {
+  background:rgba(22,22,22,0.75);
+  border-color:rgba(255,255,255,0.06);
+  box-shadow:0 4px 24px rgba(0,0,0,0.5);
+}
+html.dark .glass-hover:hover {
+  border-color:rgba(255,255,255,0.12);
+  box-shadow:0 12px 40px rgba(0,0,0,0.7);
+}
+html.dark .card {
+  background:rgba(22,22,22,0.75);
+  border-color:rgba(255,255,255,0.06);
+}
+html.dark .modal {
+  background:rgba(18,18,18,0.95);
+  border-color:rgba(255,255,255,0.08);
+}
+html.dark .view-tab { color: var(--muted-2); }
+html.dark .view-tab:hover { background:rgba(255,255,255,0.05); color:var(--ink-2); }
+html.dark .view-tab.active { background:rgba(255,255,255,0.1); color:#fff; }
+html.dark .user-name-badge {
+  background:rgba(255,255,255,0.06);
+  border-color:rgba(255,255,255,0.08);
+}
+html.dark .signout-btn { border-color:rgba(255,255,255,0.08); color:var(--muted-2); }
+html.dark .signout-btn:hover { color:var(--red); border-color:var(--red); }
+html.dark .acc-card:hover { box-shadow:0 16px 48px rgba(0,0,0,0.8); }
+html.dark .gl-card { background:rgba(22,22,22,0.75); border-color:rgba(255,255,255,0.06); }
+html.dark .gl-card:hover { border-color:rgba(255,255,255,0.12); }
+html.dark .bgt-card { background:rgba(22,22,22,0.75); border-color:rgba(255,255,255,0.06); }
+html.dark .bgt-card:hover { border-color:rgba(255,255,255,0.12); }
+html.dark thead th { background:rgba(22,22,22,0.9); color:var(--muted); border-bottom-color:rgba(255,255,255,0.06); }
+html.dark tbody td { border-bottom-color:rgba(255,255,255,0.04); color:var(--ink-3); }
+html.dark tbody tr:hover td { background:rgba(255,255,255,0.03); }
+html.dark .kpi { background:rgba(22,22,22,0.75); border-color:rgba(255,255,255,0.06); }
+html.dark .kpi:hover { border-color:rgba(255,255,255,0.12); }
+html.dark .upload-zone { background:rgba(22,22,22,0.75); border-color:rgba(255,255,255,0.08); }
+html.dark .fg input, html.dark .fg select, html.dark .fg textarea {
+  background:rgba(255,255,255,0.04);
+  border-color:rgba(255,255,255,0.08);
+  color:var(--ink-2);
+}
+html.dark .fg input:focus, html.dark .fg select:focus {
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(76,201,240,0.15);
+}
+html.dark .type-btn { background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.08); color:var(--muted-2); }
+html.dark .btn-ghost { background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.08); color:var(--ink-3); }
+html.dark .btn-ghost:hover { background:rgba(255,255,255,0.09); color:var(--ink-2); }
+html.dark .prog-track { background:rgba(255,255,255,0.06); }
+html.dark .modal-hdr { border-bottom-color:rgba(255,255,255,0.06); }
+html.dark .modal-close { background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.06); }
+html.dark .hero-banner {
+  background:linear-gradient(135deg,rgba(255,77,109,0.9) 0%,rgba(107,60,100,0.88) 50%,rgba(76,100,200,0.85) 100%);
+}
+html.dark .add-acc-card { background:rgba(255,255,255,0.03); border-color:rgba(255,255,255,0.08); }
+html.dark .add-acc-card:hover { border-color:var(--blue); background:rgba(76,201,240,0.05); }
+html.dark .section-head h2 { color:var(--ink); }
+html.dark .toast { background:rgba(22,22,22,0.95); border:1px solid rgba(255,255,255,0.08); }
+html.dark .toast.red { background:rgba(255,77,109,0.15); border-color:rgba(255,77,109,0.25); color:var(--red); }
+
+/* smooth theme transition */
+body, .glass, .card, .masthead, .kpi, .gl-card, .bgt-card,
+.modal, .view-tab, .btn, .btn-ghost, .fg input, .fg select,
+.user-name-badge, .acc-card, thead th, tbody td {
+  transition: background 0.3s ease, border-color 0.3s ease,
+              color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* ── THEME TOGGLE BUTTON ── */
+.theme-toggle {
+  position: relative;
+  width: 52px; height: 28px;
+  flex-shrink: 0;
+}
+.theme-toggle input {
+  opacity: 0; width: 0; height: 0; position: absolute;
+}
+.theme-track {
+  position: absolute; inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  border: 1.5px solid rgba(245,158,11,0.4);
+  cursor: pointer;
+  transition: background 0.4s ease, border-color 0.4s ease;
+  overflow: hidden;
+}
+.theme-toggle input:checked ~ .theme-track {
+  background: linear-gradient(135deg, #1e1b4b, #312e81);
+  border-color: rgba(99,102,241,0.5);
+}
+/* stars on dark mode */
+.theme-track::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle 1.5px at 70% 30%, rgba(255,255,255,0.9) 100%, transparent 100%),
+    radial-gradient(circle 1px   at 80% 60%, rgba(255,255,255,0.7) 100%, transparent 100%),
+    radial-gradient(circle 1px   at 62% 70%, rgba(255,255,255,0.6) 100%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.theme-toggle input:checked ~ .theme-track::after { opacity: 1; }
+
+/* knob */
+.theme-knob {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.35s ease, box-shadow 0.3s ease;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+  overflow: hidden;
+}
+.theme-toggle input:checked ~ .theme-track .theme-knob {
+  transform: translateX(24px);
+  background: #1e1b4b;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.3);
+}
+
+/* Sun icon rays */
+.theme-knob::before {
+  content: '';
+  position: absolute;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #f59e0b;
+  box-shadow:
+    0 -7px 0 1.5px #f59e0b,
+    0  7px 0 1.5px #f59e0b,
+    -7px 0 0 1.5px #f59e0b,
+     7px 0 0 1.5px #f59e0b,
+    -5px -5px 0 1.5px #f59e0b,
+     5px -5px 0 1.5px #f59e0b,
+    -5px  5px 0 1.5px #f59e0b,
+     5px  5px 0 1.5px #f59e0b;
+  transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.theme-toggle input:checked ~ .theme-track .theme-knob::before {
+  opacity: 0;
+  transform: rotate(180deg) scale(0.4);
+}
+
+/* Moon icon */
+.theme-knob::after {
+  content: '';
+  position: absolute;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 3px -2px 0 0 rgba(200,200,255,0.9);
+  opacity: 0;
+  transform: rotate(-30deg) scale(0.4);
+  transition: opacity 0.25s ease 0.1s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.theme-toggle input:checked ~ .theme-track .theme-knob::after {
+  opacity: 1;
+  transform: rotate(-30deg) scale(1);
+}
+
+/* click ripple on knob */
+.theme-track:active .theme-knob {
+  width: 24px;
+}
+
 </style>
 </head>
 <body>
@@ -437,7 +641,7 @@ tbody tr:hover td{background:rgba(74,144,217,0.05);}
     </div>
 
     <div class="signin-h">Welcome back</div>
-    <div class="signin-sub">Track your money, budgets, goals and loans — all in one place.<br></div>
+    <div class="signin-sub">Track your money, budgets, goals and loans — all in one place.<br>Your data stays 100% in your browser.</div>
 
     <!-- ── GOOGLE SIGN-IN (real OAuth) ── -->
     <div id="g-signin-wrap" style="margin-bottom:10px;">
@@ -482,12 +686,19 @@ tbody tr:hover td{background:rgba(74,144,217,0.05);}
       <button class="view-tab" onclick="showPage('categories',this)">Categories</button>
       <button class="view-tab" onclick="showPage('analytics',this)">Analytics</button>
     </div>
-    <!-- User pill + sign out — top right -->
+    <!-- User pill + theme toggle + sign out — top right -->
     <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
       <div class="user-name-badge">
         <div class="user-avatar" id="user-avatar">A</div>
         <span id="user-name-disp">User</span>
       </div>
+      <!-- Theme Toggle -->
+      <label class="theme-toggle" title="Toggle dark / light mode">
+        <input type="checkbox" id="theme-chk" onchange="toggleTheme(this.checked)">
+        <div class="theme-track">
+          <div class="theme-knob"></div>
+        </div>
+      </label>
       <button class="signout-btn" onclick="signOut()">Sign out</button>
     </div>
   </div>
@@ -496,6 +707,13 @@ tbody tr:hover td{background:rgba(74,144,217,0.05);}
 <!-- ── DASHBOARD ── -->
 <div class="page active" id="page-dashboard">
 <main>
+  <!-- Top-right Add Transaction button -->
+  <div style="display:flex;justify-content:flex-end;margin-bottom:14px;">
+    <button class="btn btn-primary" onclick="openModal('txn')" style="padding:10px 22px;font-size:14px;box-shadow:0 4px 16px rgba(200,16,46,0.3);">
+      + Add Transaction
+    </button>
+  </div>
+
   <div class="hero-banner" style="animation:fadeUp 0.5s ease both">
     <div class="hero-greeting">Welcome back</div>
     <div class="hero-name" id="hero-name">Good morning!</div>
@@ -552,6 +770,34 @@ tbody tr:hover td{background:rgba(74,144,217,0.05);}
     <div class="card glass">
       <div class="card-head"><h3>Account Balances</h3><button class="btn btn-ghost btn-sm" onclick="showPage('accounts',null)">Manage</button></div>
       <div id="dash-acc-balances" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;"></div>
+    </div>
+  </div>
+
+  <!-- ROW 3.5: EMI / Loan Monthly Summary -->
+  <div style="animation:fadeUp 0.5s 0.30s ease both;opacity:0;margin-bottom:14px">
+    <div class="card glass">
+      <div class="card-head">
+        <h3>Loan &amp; EMI Summary</h3>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input type="month" id="emi-month-sel" onchange="renderEmiSummary()"
+            style="padding:5px 10px;border-radius:8px;border:1.5px solid rgba(74,100,180,0.14);font-size:12px;font-family:var(--font);color:var(--ink);background:rgba(255,255,255,0.7);outline:none;cursor:pointer;transition:border-color 0.18s;"
+            onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='rgba(74,100,180,0.14)'">
+          <button class="btn btn-ghost btn-sm" onclick="showPage('loans',null)">View Loans</button>
+        </div>
+      </div>
+      <!-- KPI strip -->
+      <div id="emi-kpi-strip" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;"></div>
+      <!-- Chart + table side by side -->
+      <div style="display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:start;">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;">EMI Distribution</div>
+          <div style="position:relative;height:220px;"><canvas id="ch-emi-donut"></canvas></div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;">Loan-wise Breakdown</div>
+          <div id="emi-loan-rows" style="display:flex;flex-direction:column;gap:8px;max-height:240px;overflow-y:auto;"></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -701,17 +947,72 @@ tbody tr:hover td{background:rgba(74,144,217,0.05);}
 <!-- ══════ MODALS ══════ -->
 <!-- Transaction -->
 <div class="modal-bg" id="m-txn">
-  <div class="modal">
+  <div class="modal" style="width:620px;">
     <div class="modal-hdr"><span class="modal-title" id="m-txn-title">Add Transaction</span><button class="modal-close" onclick="closeModal('txn')">✕</button></div>
-    <div class="fg"><label>Type</label><div class="type-toggle"><div class="type-btn active-exp" id="tb-exp" onclick="setTT('expense')">Expense</div><div class="type-btn" id="tb-inc" onclick="setTT('income')">Income</div></div></div>
-    <div class="fg-row"><div class="fg"><label>Amount (₹)</label><input type="number" id="t-amt" placeholder="0.00" min="0" step="0.01"></div><div class="fg"><label>Date</label><input type="date" id="t-date"></div></div>
-    <div class="fg"><label>Description</label><input type="text" id="t-desc" placeholder="What was this for?"></div>
-    <div class="fg"><label>Account</label><select id="t-acc"></select></div>
-    <div class="fg"><label>Category</label><select id="t-cat"></select></div>
-    <div class="form-actions">
-      <button class="btn btn-danger btn-sm" id="t-del-btn" style="display:none;margin-right:auto" onclick="delTxnFromModal()">Delete</button>
-      <button class="btn btn-ghost" onclick="closeModal('txn')">Cancel</button>
-      <button class="btn btn-primary" id="t-save-btn" onclick="saveTxn()">Add Transaction</button>
+
+    <!-- Mode tabs (only shown when adding new) -->
+    <div id="txn-mode-tabs" style="display:flex;gap:4px;margin-bottom:18px;background:rgba(74,100,180,0.06);padding:4px;border-radius:10px;">
+      <button id="tab-single" onclick="setTxnMode('single')" style="flex:1;padding:8px;border-radius:7px;border:none;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;background:var(--blue);color:#fff;transition:all 0.18s;">Single</button>
+      <button id="tab-bulk"   onclick="setTxnMode('bulk')"   style="flex:1;padding:8px;border-radius:7px;border:none;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;background:transparent;color:var(--muted);transition:all 0.18s;">Multiple</button>
+      <button id="tab-transfer" onclick="setTxnMode('transfer')" style="flex:1;padding:8px;border-radius:7px;border:none;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;background:transparent;color:var(--muted);transition:all 0.18s;">Transfer</button>
+    </div>
+
+    <!-- SINGLE MODE -->
+    <div id="txn-single-mode">
+      <div class="fg"><label>Type</label><div class="type-toggle"><div class="type-btn active-exp" id="tb-exp" onclick="setTT('expense')">Expense</div><div class="type-btn" id="tb-inc" onclick="setTT('income')">Income</div></div></div>
+      <div class="fg-row"><div class="fg"><label>Amount (₹)</label><input type="number" id="t-amt" placeholder="0.00" min="0" step="0.01"></div><div class="fg"><label>Date</label><input type="date" id="t-date"></div></div>
+      <div class="fg"><label>Description</label><input type="text" id="t-desc" placeholder="What was this for?"></div>
+      <div class="fg"><label>Account</label><select id="t-acc"></select></div>
+      <div class="fg"><label>Category</label><select id="t-cat"></select></div>
+      <div class="form-actions">
+        <button class="btn btn-danger btn-sm" id="t-del-btn" style="display:none;margin-right:auto" onclick="delTxnFromModal()">Delete</button>
+        <button class="btn btn-ghost" onclick="closeModal('txn')">Cancel</button>
+        <button class="btn btn-primary" id="t-save-btn" onclick="saveTxn()">Add Transaction</button>
+      </div>
+    </div>
+
+    <!-- BULK MODE -->
+    <div id="txn-bulk-mode" style="display:none;">
+      <div class="fg" style="margin-bottom:14px;">
+        <label>Account</label><select id="tb-acc-default"></select>
+      </div>
+      <!-- Column headers: Date | Type | Amount | Category | Description | ✕ -->
+      <div style="display:grid;grid-template-columns:110px 85px 100px 130px 1fr 28px;gap:5px;margin-bottom:5px;padding:0 2px;">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;">Date</div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;">Type</div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;">Amount (₹)</div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;">Category</div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;">Description</div>
+        <div></div>
+      </div>
+      <div id="bulk-txn-rows" style="display:flex;flex-direction:column;gap:5px;max-height:320px;overflow-y:auto;padding-right:2px;"></div>
+      <button onclick="addBulkTxnRow()" style="width:100%;padding:8px;border-radius:10px;border:1.5px dashed rgba(74,100,180,0.22);background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:var(--font);margin-top:8px;margin-bottom:14px;" onmouseover="this.style.borderColor='var(--blue)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='rgba(74,100,180,0.22)';this.style.color='var(--muted)'">+ Add row</button>
+      <div class="form-actions">
+        <span id="bulk-txn-count" style="font-size:12px;color:var(--muted);margin-right:auto;font-weight:600;align-self:center;"></span>
+        <button class="btn btn-ghost" onclick="closeModal('txn')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveBulkTxns()">Add All Transactions</button>
+      </div>
+    </div>
+
+    <!-- TRANSFER MODE -->
+    <div id="txn-transfer-mode" style="display:none;">
+      <div style="padding:10px 14px;border-radius:10px;background:rgba(74,100,180,0.06);border:1px solid rgba(74,100,180,0.14);font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6;">
+        Transfer money between your accounts. Both account balances update automatically.
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>From Account</label><select id="tr-from"></select></div>
+        <div class="fg"><label>To Account</label><select id="tr-to"></select></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Amount (₹)</label><input type="number" id="tr-amt" placeholder="0.00" min="0" step="0.01" oninput="checkTransferBalance()"></div>
+        <div class="fg"><label>Date</label><input type="date" id="tr-date"></div>
+      </div>
+      <div class="fg"><label>Notes</label><input type="text" id="tr-notes" placeholder="e.g. Monthly transfer to savings"></div>
+      <div id="tr-balance-warn" style="display:none;padding:10px 14px;border-radius:10px;background:rgba(200,16,46,0.07);border:1px solid rgba(200,16,46,0.2);font-size:12px;color:var(--red);margin-bottom:12px;font-weight:600;"></div>
+      <div class="form-actions">
+        <button class="btn btn-ghost" onclick="closeModal('txn')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveTransfer()">Transfer</button>
+      </div>
     </div>
   </div>
 </div>
@@ -732,15 +1033,52 @@ tbody tr:hover td{background:rgba(74,144,217,0.05);}
 </div>
 <!-- Category -->
 <div class="modal-bg" id="m-category">
-  <div class="modal">
-    <div class="modal-hdr"><span class="modal-title" id="m-cat-title">New Category</span><button class="modal-close" onclick="closeModal('category')">✕</button></div>
-    <div class="fg"><label>Category Name</label><input type="text" id="c-name" placeholder="e.g. Groceries"></div>
-    <div class="fg"><label>Type</label><div class="type-toggle"><div class="type-btn active-exp" id="tb-cat-exp" onclick="setCT('expense')">Expense</div><div class="type-btn" id="tb-cat-inc" onclick="setCT('income')">Income</div></div></div>
-    <!-- colour is fixed: red for expense, green for income — set automatically -->
-    <div class="form-actions">
-      <button class="btn btn-danger btn-sm" id="c-del-btn" style="display:none;margin-right:auto" onclick="delCatFromModal()">Delete</button>
-      <button class="btn btn-ghost" onclick="closeModal('category')">Cancel</button>
-      <button class="btn btn-primary" id="c-save-btn" onclick="saveCat()">Add Category</button>
+  <div class="modal" style="width:580px;">
+    <div class="modal-hdr"><span class="modal-title" id="m-cat-title">Add Categories</span><button class="modal-close" onclick="closeModal('category')">✕</button></div>
+
+    <!-- ── EDIT MODE (single) ── -->
+    <div id="cat-edit-mode" style="display:none;">
+      <div class="fg"><label>Category Name</label><input type="text" id="c-name" placeholder="e.g. Groceries"></div>
+      <div class="fg"><label>Type</label><div class="type-toggle"><div class="type-btn active-exp" id="tb-cat-exp" onclick="setCT('expense')">Expense</div><div class="type-btn" id="tb-cat-inc" onclick="setCT('income')">Income</div></div></div>
+      <div class="form-actions">
+        <button class="btn btn-danger btn-sm" id="c-del-btn" style="display:none;margin-right:auto" onclick="delCatFromModal()">Delete</button>
+        <button class="btn btn-ghost" onclick="closeModal('category')">Cancel</button>
+        <button class="btn btn-primary" id="c-save-btn" onclick="saveCat()">Save Changes</button>
+      </div>
+    </div>
+
+    <!-- ── ADD MODE (bulk) ── -->
+    <div id="cat-add-mode">
+      <div class="fg">
+        <label>Type</label>
+        <div class="type-toggle">
+          <div class="type-btn active-exp" id="tb-bulk-exp" onclick="setBulkType('expense')">Expense</div>
+          <div class="type-btn" id="tb-bulk-inc" onclick="setBulkType('income')">Income</div>
+        </div>
+      </div>
+
+      <!-- Bulk entry rows -->
+      <div style="margin-bottom:8px;">
+        <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Category Names</label>
+        <div id="bulk-rows" style="display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto;padding-right:2px;"></div>
+      </div>
+
+      <!-- Add row button -->
+      <button onclick="addBulkRow()" style="width:100%;padding:8px;border-radius:10px;border:1.5px dashed rgba(74,100,180,0.25);background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:var(--font);margin-bottom:14px;"
+        onmouseover="this.style.borderColor='var(--blue)';this.style.color='var(--blue)'"
+        onmouseout="this.style.borderColor='rgba(74,100,180,0.25)';this.style.color='var(--muted)'">
+        + Add another row
+      </button>
+
+      <div style="padding:10px 14px;border-radius:10px;background:rgba(74,100,180,0.05);border:1px solid rgba(74,100,180,0.12);font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6;">
+        Tip: Press <strong style="color:var(--ink)">Tab</strong> or <strong style="color:var(--ink)">Enter</strong> in any row to jump to the next. Fill as many as you need.
+      </div>
+
+      <div class="form-actions">
+        <span id="bulk-count" style="font-size:12px;color:var(--muted);margin-right:auto;font-weight:600;align-self:center;"></span>
+        <button class="btn btn-ghost" onclick="closeModal('category')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveBulkCats()">Add All Categories</button>
+      </div>
     </div>
   </div>
 </div>
@@ -760,10 +1098,25 @@ tbody tr:hover td{background:rgba(74,144,217,0.05);}
 <!-- Goal -->
 <div class="modal-bg" id="m-goal">
   <div class="modal">
-    <div class="modal-hdr"><span class="modal-title" id="m-goal-title">New Goal</span><button class="modal-close" onclick="closeModal('goal')">✕</button></div>
+    <div class="modal-hdr"><span class="modal-title" id="m-goal-title">New Savings Goal</span><button class="modal-close" onclick="closeModal('goal')">✕</button></div>
     <div class="fg"><label>Goal Name</label><input type="text" id="g-name" placeholder="e.g. Emergency Fund"></div>
-    <div class="fg-row"><div class="fg"><label>Target (₹)</label><input type="number" id="g-target" placeholder="100000" min="0" step="1"></div><div class="fg"><label>Already Saved (₹)</label><input type="number" id="g-saved" placeholder="0" min="0" step="1"></div></div>
-    <div class="fg-row"><div class="fg"><label>Target Date</label><input type="date" id="g-date"></div><div class="fg"><label>Monthly Target (₹)</label><input type="number" id="g-monthly" placeholder="8000" min="0" step="1"></div></div>
+    <div class="fg-row">
+      <div class="fg"><label>Target Amount (₹)</label><input type="number" id="g-target" placeholder="100000" min="0" step="1" oninput="calcGoalMonthly()"></div>
+      <div class="fg"><label>Already Saved (₹)</label><input type="number" id="g-saved" placeholder="0" min="0" step="1" oninput="calcGoalMonthly()"></div>
+    </div>
+    <div class="fg-row">
+      <div class="fg"><label>Number of Months</label><input type="number" id="g-months" placeholder="12" min="1" step="1" oninput="calcGoalMonthly()"></div>
+      <div class="fg"><label>Target Date <span style="color:var(--muted);font-weight:400">(or use months)</span></label><input type="date" id="g-date" oninput="calcGoalFromDate()"></div>
+    </div>
+    <!-- Auto-calculated result -->
+    <div id="g-calc-result" style="display:none;padding:12px 16px;border-radius:12px;background:rgba(0,166,81,0.07);border:1px solid rgba(0,166,81,0.2);margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Auto Calculation</div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;">
+        <div><div style="font-size:11px;color:var(--muted)">Save per month</div><div id="g-calc-monthly" style="font-size:22px;font-weight:700;color:var(--green);letter-spacing:-0.01em;">₹0</div></div>
+        <div><div style="font-size:11px;color:var(--muted)">Amount needed</div><div id="g-calc-needed" style="font-size:22px;font-weight:700;color:var(--ink);letter-spacing:-0.01em;">₹0</div></div>
+        <div><div style="font-size:11px;color:var(--muted)">Months to go</div><div id="g-calc-months" style="font-size:22px;font-weight:700;color:var(--blue);letter-spacing:-0.01em;">0</div></div>
+      </div>
+    </div>
     <div class="fg"><label>Notes</label><input type="text" id="g-notes" placeholder="Optional"></div>
     <div class="form-actions">
       <button class="btn btn-danger btn-sm" id="g-del-btn" style="display:none;margin-right:auto" onclick="delGoalFromModal()">Delete</button>
@@ -777,9 +1130,38 @@ tbody tr:hover td{background:rgba(74,144,217,0.05);}
   <div class="modal">
     <div class="modal-hdr"><span class="modal-title" id="m-loan-title">Add Loan / EMI</span><button class="modal-close" onclick="closeModal('loan')">✕</button></div>
     <div class="fg"><label>Loan Name</label><input type="text" id="l-name" placeholder="e.g. Home Loan — SBI"></div>
-    <div class="fg-row"><div class="fg"><label>Total Loan (₹)</label><input type="number" id="l-total" placeholder="2500000" min="0" step="1"></div><div class="fg"><label>Amount Paid (₹)</label><input type="number" id="l-paid" placeholder="0" min="0" step="1"></div></div>
-    <div class="fg-row"><div class="fg"><label>Monthly EMI (₹)</label><input type="number" id="l-emi" placeholder="20000" min="0" step="1"></div><div class="fg"><label>Interest Rate (% p.a.)</label><input type="number" id="l-rate" placeholder="8.5" min="0" step="0.1"></div></div>
-    <div class="fg-row"><div class="fg"><label>Lender</label><input type="text" id="l-lender" placeholder="SBI, HDFC…"></div><div class="fg"><label>End Date</label><input type="date" id="l-date"></div></div>
+    <div class="fg-row">
+      <div class="fg"><label>Total Loan Amount (₹)</label><input type="number" id="l-total" placeholder="2500000" min="0" step="1" oninput="calcLoan()"></div>
+      <div class="fg"><label>Processing Fee (₹)</label><input type="number" id="l-fee" placeholder="0" min="0" step="1" oninput="calcLoan()"></div>
+    </div>
+    <div class="fg-row">
+      <div class="fg"><label>Monthly EMI (₹)</label><input type="number" id="l-emi" placeholder="20000" min="0" step="1" oninput="calcLoan()"></div>
+      <div class="fg"><label>Interest Rate (% p.a.)</label><input type="number" id="l-rate" placeholder="8.5" min="0" step="0.1" oninput="calcLoan()"></div>
+    </div>
+    <div class="fg-row">
+      <div class="fg"><label>EMIs Paid</label><input type="number" id="l-emis-paid" placeholder="0" min="0" step="1" oninput="calcLoan()"></div>
+      <div class="fg"><label>Total EMIs</label><input type="number" id="l-total-emis" placeholder="240" min="0" step="1" oninput="calcLoan()"></div>
+    </div>
+    <div class="fg-row">
+      <div class="fg"><label>Start Date</label><input type="date" id="l-start" oninput="calcLoan()"></div>
+      <div class="fg">
+        <label>End Date <span style="font-size:10px;color:var(--blue);font-weight:400">(auto-calculated)</span></label>
+        <div id="l-end-display" style="padding:10px 13px;border-radius:11px;background:rgba(74,100,180,0.06);border:1.5px solid rgba(74,100,180,0.14);font-size:14px;color:var(--ink-2);font-weight:600;min-height:42px;display:flex;align-items:center;">—</div>
+      </div>
+    </div>
+    <div class="fg"><label>Lender</label><input type="text" id="l-lender" placeholder="SBI, HDFC, ICICI…"></div>
+    <!-- Auto-calculated result -->
+    <div id="l-calc-result" style="display:none;padding:12px 16px;border-radius:12px;background:rgba(74,100,180,0.06);border:1px solid rgba(74,100,180,0.15);margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:8px;">Auto Calculation</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex-wrap:wrap;">
+        <div><div style="font-size:11px;color:var(--muted)">Amount Paid</div><div id="l-calc-paid" style="font-size:18px;font-weight:700;color:var(--green);">₹0</div></div>
+        <div><div style="font-size:11px;color:var(--muted)">Outstanding</div><div id="l-calc-out" style="font-size:18px;font-weight:700;color:var(--red);">₹0</div></div>
+        <div><div style="font-size:11px;color:var(--muted)">EMIs Remaining</div><div id="l-calc-rem" style="font-size:18px;font-weight:700;color:var(--blue);">0</div></div>
+        <div><div style="font-size:11px;color:var(--muted)">Total Interest</div><div id="l-calc-int" style="font-size:18px;font-weight:700;color:var(--gold);">₹0</div></div>
+        <div><div style="font-size:11px;color:var(--muted)">Total Cost</div><div id="l-calc-total" style="font-size:18px;font-weight:700;color:var(--ink);">₹0</div></div>
+        <div><div style="font-size:11px;color:var(--muted)">% Repaid</div><div id="l-calc-pct" style="font-size:18px;font-weight:700;color:var(--blue);">0%</div></div>
+      </div>
+    </div>
     <div class="form-actions">
       <button class="btn btn-danger btn-sm" id="l-del-btn" style="display:none;margin-right:auto" onclick="delLoanFromModal()">Delete</button>
       <button class="btn btn-ghost" onclick="closeModal('loan')">Cancel</button>
@@ -901,6 +1283,7 @@ function doSignIn(name, email='', picture='', provider=''){
   // Load saved data for this user
   const hadData = loadData();
   refreshDash();
+  syncThemeToggle();
   // Show welcome toast
   if(!hadData){
     setTimeout(()=>toast('Welcome to FinTrack, '+first+'! Add your first account to get started.'),600);
@@ -946,7 +1329,7 @@ setInterval(function(){
 // PERSISTENCE — localStorage
 // Data saved per user email/name key
 // ══════════════════════════════════════
-const STORAGE_VERSION = 'fintrack_v1';
+const STORAGE_VERSION = 'fintrack_v2';
 
 function storageKey(){
   // Use email if Google user, else name — so each person has their own data
@@ -1105,16 +1488,18 @@ function openModal(name,id){
     document.getElementById('g-del-btn').style.display=id?'inline-flex':'none';
     document.getElementById('m-goal-title').textContent=id?'Edit Goal':'New Savings Goal';
     document.getElementById('g-save-btn').textContent=id?'Save Changes':'Add Goal';
+    document.getElementById('g-calc-result').style.display='none';
     if(id){
       const g=S.goals.find(x=>x.id===id);
       document.getElementById('g-name').value=g.name;
       document.getElementById('g-target').value=g.target;
       document.getElementById('g-saved').value=g.saved;
       document.getElementById('g-date').value=g.date||'';
-      document.getElementById('g-monthly').value=g.monthly||'';
+      document.getElementById('g-months').value=g.months||'';
       document.getElementById('g-notes').value=g.notes||'';
+      if(g.target&&g.months) calcGoalMonthly();
     } else {
-      ['g-name','g-target','g-saved','g-date','g-monthly','g-notes'].forEach(x=>document.getElementById(x).value='');
+      ['g-name','g-target','g-saved','g-date','g-months','g-notes'].forEach(x=>document.getElementById(x).value='');
     }
   }
   if(name==='loan'){
@@ -1122,17 +1507,26 @@ function openModal(name,id){
     document.getElementById('l-del-btn').style.display=id?'inline-flex':'none';
     document.getElementById('m-loan-title').textContent=id?'Edit Loan':'Add Loan / EMI';
     document.getElementById('l-save-btn').textContent=id?'Save Changes':'Add Loan';
+    document.getElementById('l-calc-result').style.display='none';
     if(id){
       const l=S.loans.find(x=>x.id===id);
       document.getElementById('l-name').value=l.name;
       document.getElementById('l-total').value=l.total;
-      document.getElementById('l-paid').value=l.paid;
+      document.getElementById('l-fee').value=l.fee||0;
       document.getElementById('l-emi').value=l.emi;
       document.getElementById('l-rate').value=l.rate;
+      document.getElementById('l-emis-paid').value=l.emisPaid||0;
+      document.getElementById('l-total-emis').value=l.totalEmis||0;
       document.getElementById('l-lender').value=l.lender||'';
-      document.getElementById('l-date').value=l.date||'';
+      document.getElementById('l-start').value=l.startDate||'';
+      window._loanEndDate = l.date||'';
+      const edEl=document.getElementById('l-end-display');
+      if(edEl&&l.date) edEl.textContent=fmtDate(l.date);
+      calcLoan();
     } else {
-      ['l-name','l-total','l-paid','l-emi','l-rate','l-lender','l-date'].forEach(x=>document.getElementById(x).value='');
+      ['l-name','l-total','l-fee','l-emi','l-rate','l-emis-paid','l-total-emis','l-lender','l-start'].forEach(x=>document.getElementById(x).value='');
+      const ed=document.getElementById('l-end-display');if(ed)ed.textContent='—';
+      window._loanEndDate='';
     }
   }
   document.getElementById('m-'+name).classList.add('open');
@@ -1216,36 +1610,141 @@ function delAccDirect(id){if(!confirm('Delete account and its transactions?'))re
 // ── CATEGORIES — full edit support ──
 let editCatId=null;
 
+// ── CATEGORIES — bulk add + single edit ──
+let bulkCatType = 'expense';
+let bulkRowCount = 0;
+
 function openCatModal(id){
-  editCatId=id||null;
-  const isEdit=!!id;
-  document.getElementById('m-cat-title').textContent=isEdit?'Edit Category':'New Category';
-  document.getElementById('c-save-btn').textContent=isEdit?'Save Changes':'Add Category';
-  document.getElementById('c-del-btn').style.display=isEdit?'inline-flex':'none';
+  editCatId = id || null;
+  const isEdit = !!id;
+
   if(isEdit){
-    const c=S.categories.find(x=>x.id===id);
-    document.getElementById('c-name').value=c.name;
+    // Show edit mode
+    document.getElementById('cat-edit-mode').style.display = 'block';
+    document.getElementById('cat-add-mode').style.display = 'none';
+    document.getElementById('m-cat-title').textContent = 'Edit Category';
+    document.getElementById('c-del-btn').style.display = 'inline-flex';
+    const c = S.categories.find(x=>x.id===id);
+    document.getElementById('c-name').value = c.name;
     setCT(c.type);
-      selCatClr = c.type==='income' ? '#00A651' : '#C8102E';
+    selCatClr = c.type==='income' ? '#00A651' : '#C8102E';
   } else {
-    document.getElementById('c-name').value='';
-    setCT('expense');
-    selCatClr='#C8102E';
+    // Show bulk add mode
+    document.getElementById('cat-edit-mode').style.display = 'none';
+    document.getElementById('cat-add-mode').style.display = 'block';
+    document.getElementById('m-cat-title').textContent = 'Add Categories';
+    setBulkType('expense');
+    // Start with 5 empty rows
+    const bulkEl = document.getElementById('bulk-rows');
+    bulkEl.innerHTML = '';
+    bulkRowCount = 0;
+    for(let i=0;i<5;i++) addBulkRow();
+    updateBulkCount();
+    // Focus first row
+    setTimeout(()=>{ const first=document.querySelector('.bulk-input'); if(first)first.focus(); }, 100);
   }
   document.getElementById('m-category').classList.add('open');
 }
+
+function setBulkType(t){
+  bulkCatType = t;
+  document.getElementById('tb-bulk-exp').className = 'type-btn'+(t==='expense'?' active-exp':'');
+  document.getElementById('tb-bulk-inc').className = 'type-btn'+(t==='income'?' active-inc':'');
+  selCatClr = t==='income' ? '#00A651' : '#C8102E';
+  // Update colour indicators on existing rows
+  document.querySelectorAll('.bulk-dot').forEach(d=>{
+    d.style.background = t==='income' ? '#00A651' : '#C8102E';
+  });
+}
+
+function addBulkRow(){
+  const container = document.getElementById('bulk-rows');
+  const rowId = ++bulkRowCount;
+  const color = bulkCatType==='income' ? '#00A651' : '#C8102E';
+  const div = document.createElement('div');
+  div.id = 'bulk-row-'+rowId;
+  div.style.cssText = 'display:flex;align-items:center;gap:8px;';
+  div.innerHTML = `
+    <div class="bulk-dot" style="width:8px;height:8px;border-radius:50%;background:${color};flex-shrink:0;"></div>
+    <input type="text" class="bulk-input" placeholder="Category name"
+      style="flex:1;padding:9px 12px;border-radius:10px;background:rgba(255,255,255,0.7);border:1.5px solid rgba(74,100,180,0.12);color:var(--ink);font-size:13px;font-family:var(--font);outline:none;transition:border-color 0.18s;"
+      onkeydown="bulkKeyNav(event,${rowId})"
+      oninput="updateBulkCount()"
+      onfocus="this.style.borderColor='var(--blue)'"
+      onblur="this.style.borderColor='rgba(74,100,180,0.12)'">
+    <button onclick="removeBulkRow(${rowId})"
+      style="background:none;border:none;color:var(--muted-2);cursor:pointer;font-size:16px;padding:4px 6px;border-radius:6px;transition:all 0.15s;flex-shrink:0;"
+      onmouseover="this.style.color='var(--red)';this.style.background='var(--red-soft)'"
+      onmouseout="this.style.color='var(--muted-2)';this.style.background='none'"
+      title="Remove row">✕</button>`;
+  container.appendChild(div);
+  updateBulkCount();
+}
+
+function removeBulkRow(rowId){
+  const row = document.getElementById('bulk-row-'+rowId);
+  if(row) row.remove();
+  updateBulkCount();
+}
+
+function bulkKeyNav(e, rowId){
+  if(e.key==='Enter' || e.key==='Tab'){
+    e.preventDefault();
+    // Find next input or add a new row
+    const inputs = Array.from(document.querySelectorAll('.bulk-input'));
+    const idx = inputs.findIndex(i=>i.closest('#bulk-row-'+rowId));
+    if(idx < inputs.length-1){
+      inputs[idx+1].focus();
+    } else {
+      addBulkRow();
+      setTimeout(()=>{
+        const all = document.querySelectorAll('.bulk-input');
+        all[all.length-1].focus();
+      }, 30);
+    }
+  }
+}
+
+function updateBulkCount(){
+  const filled = Array.from(document.querySelectorAll('.bulk-input')).filter(i=>i.value.trim()).length;
+  const el = document.getElementById('bulk-count');
+  if(el) el.textContent = filled > 0 ? filled+' categor'+(filled===1?'y':'ies')+' ready to add' : '';
+}
+
+function saveBulkCats(){
+  const inputs = Array.from(document.querySelectorAll('.bulk-input'));
+  const names  = inputs.map(i=>i.value.trim()).filter(n=>n.length>0);
+  // Remove duplicates (case-insensitive)
+  const unique = [...new Set(names.map(n=>n.toLowerCase()))].map(low=>names.find(n=>n.toLowerCase()===low));
+  if(!unique.length){ toast('Enter at least one category name','red'); return; }
+  // Skip names that already exist
+  const existing = S.categories.map(c=>c.name.toLowerCase());
+  const toAdd = unique.filter(n=>!existing.includes(n.toLowerCase()));
+  const skipped = unique.length - toAdd.length;
+  toAdd.forEach(name=>{
+    S.categories.push({
+      id: S.nCat++,
+      name,
+      type: bulkCatType,
+      icon: '',
+      color: bulkCatType==='income' ? '#00A651' : '#C8102E'
+    });
+  });
+  saveData();
+  closeModal('category');
+  renderCats();
+  const msg = toAdd.length+' categor'+(toAdd.length===1?'y':'ies')+' added'+(skipped>0?' ('+skipped+' duplicates skipped)':'');
+  toast(msg);
+}
+
 function saveCat(){
   const name=document.getElementById('c-name').value.trim();
   if(!name){toast('Enter a name','red');return;}
   if(editCatId){
     const c=S.categories.find(x=>x.id===editCatId);
     c.name=name;c.type=CT;c.color=CT==='income'?'#00A651':'#C8102E';
-    // Update any transactions that reference this category
-    S.transactions.forEach(t=>{if(t.catId===editCatId){t.catName=name;t.catColor=selCatClr;}});
+    S.transactions.forEach(t=>{if(t.catId===editCatId){t.catName=name;t.catColor=c.color;}});
     saveData();toast('Category updated');
-  } else {
-    S.categories.push({id:S.nCat++,name,type:CT,icon:'',color:CT==='income'?'#00A651':'#C8102E'});
-    saveData();toast('Category added');
   }
   document.getElementById('c-name').value='';
   closeModal('category');renderCats();
@@ -1544,18 +2043,41 @@ function renderDashBudgets(){
 }
 
 // ── GOALS — click card to edit ──
+// ── Goal auto-calculation ──
+function calcGoalMonthly(){
+  const target = parseFloat(document.getElementById('g-target').value)||0;
+  const saved  = parseFloat(document.getElementById('g-saved').value)||0;
+  const months = parseInt(document.getElementById('g-months').value)||0;
+  if(!target||!months){document.getElementById('g-calc-result').style.display='none';return;}
+  const needed  = Math.max(target-saved,0);
+  const monthly = months>0 ? Math.ceil(needed/months) : 0;
+  document.getElementById('g-calc-result').style.display='block';
+  document.getElementById('g-calc-monthly').textContent = '₹'+fmt(monthly);
+  document.getElementById('g-calc-needed').textContent  = '₹'+fmt(needed);
+  document.getElementById('g-calc-months').textContent  = months;
+}
+function calcGoalFromDate(){
+  const dateVal = document.getElementById('g-date').value;
+  if(!dateVal) return;
+  const diff = Math.ceil((new Date(dateVal)-new Date())/(864e5*30.44));
+  if(diff>0){
+    document.getElementById('g-months').value = diff;
+    calcGoalMonthly();
+  }
+}
 function saveGoal(){
   const name=document.getElementById('g-name').value.trim();if(!name){toast('Enter a name','red');return;}
-  const target=parseFloat(document.getElementById('g-target').value)||0;
-  const saved=parseFloat(document.getElementById('g-saved').value)||0;
-  const date=document.getElementById('g-date').value;
-  const monthly=parseFloat(document.getElementById('g-monthly').value)||0;
-  const notes=document.getElementById('g-notes').value.trim();
+  const target = parseFloat(document.getElementById('g-target').value)||0;
+  const saved  = parseFloat(document.getElementById('g-saved').value)||0;
+  const months = parseInt(document.getElementById('g-months').value)||0;
+  const date   = document.getElementById('g-date').value;
+  const notes  = document.getElementById('g-notes').value.trim();
+  const monthly= months>0&&target>saved ? Math.ceil((target-saved)/months) : 0;
   if(editGoalId){
     const g=S.goals.find(x=>x.id===editGoalId);
-    Object.assign(g,{name,target,saved,date,monthly,notes});saveData();toast('Goal updated');
+    Object.assign(g,{name,target,saved,date,monthly,months,notes});saveData();toast('Goal updated');
   } else {
-    S.goals.push({id:S.nGoal++,name,target,saved,date,monthly,notes});saveData();toast('Goal added');
+    S.goals.push({id:S.nGoal++,name,target,saved,date,monthly,months,notes});saveData();toast('Goal added');
   }
   closeModal('goal');renderGoals();
 }
@@ -1586,30 +2108,85 @@ function renderGoals(){
 }
 
 // ── LOANS — click card to edit ──
+// ── Loan auto-calculation ──
+function calcLoan(){
+  const total     = parseFloat(document.getElementById('l-total').value)||0;
+  const fee       = parseFloat(document.getElementById('l-fee').value)||0;
+  const emi       = parseFloat(document.getElementById('l-emi').value)||0;
+  const rate      = parseFloat(document.getElementById('l-rate').value)||0;
+  const emisPaid  = parseInt(document.getElementById('l-emis-paid').value)||0;
+  const totalEmis = parseInt(document.getElementById('l-total-emis').value)||0;
+  const startDate = document.getElementById('l-start').value;
+
+  // Auto-calculate End Date from Start Date + Total EMIs
+  const endDisplay = document.getElementById('l-end-display');
+  if(startDate && totalEmis > 0){
+    const start = new Date(startDate);
+    start.setMonth(start.getMonth() + totalEmis);
+    const endStr = start.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+    if(endDisplay) endDisplay.textContent = endStr;
+    // Store computed end date for saving
+    window._loanEndDate = start.toISOString().split('T')[0];
+  } else {
+    if(endDisplay) endDisplay.textContent = '—';
+    window._loanEndDate = '';
+  }
+
+  if(!total&&!emi){document.getElementById('l-calc-result').style.display='none';return;}
+  const paid        = emisPaid * emi;
+  const outstanding = Math.max(total - paid, 0);
+  const remaining   = Math.max(totalEmis - emisPaid, 0);
+  const totalInterest = totalEmis>0 ? Math.max((totalEmis*emi) - total, 0) : 0;
+  const totalCost     = total + fee + totalInterest;
+  const pct           = total>0 ? Math.min(Math.round(paid/total*100),100) : 0;
+  document.getElementById('l-calc-result').style.display='block';
+  document.getElementById('l-calc-paid').textContent  = '₹'+fmt(paid);
+  document.getElementById('l-calc-out').textContent   = '₹'+fmt(outstanding);
+  document.getElementById('l-calc-rem').textContent   = remaining;
+  document.getElementById('l-calc-int').textContent   = '₹'+fmt(totalInterest);
+  document.getElementById('l-calc-total').textContent = '₹'+fmt(totalCost);
+  document.getElementById('l-calc-pct').textContent   = pct+'%';
+}
 function saveLoan(){
-  const name=document.getElementById('l-name').value.trim();if(!name){toast('Enter a name','red');return;}
-  const total=parseFloat(document.getElementById('l-total').value)||0;
-  const paid=parseFloat(document.getElementById('l-paid').value)||0;
-  const emi=parseFloat(document.getElementById('l-emi').value)||0;
-  const rate=parseFloat(document.getElementById('l-rate').value)||0;
-  const lender=document.getElementById('l-lender').value.trim();
-  const date=document.getElementById('l-date').value;
+  const name      = document.getElementById('l-name').value.trim();if(!name){toast('Enter a name','red');return;}
+  const total     = parseFloat(document.getElementById('l-total').value)||0;
+  const fee       = parseFloat(document.getElementById('l-fee').value)||0;
+  const emi       = parseFloat(document.getElementById('l-emi').value)||0;
+  const rate      = parseFloat(document.getElementById('l-rate').value)||0;
+  const emisPaid  = parseInt(document.getElementById('l-emis-paid').value)||0;
+  const totalEmis = parseInt(document.getElementById('l-total-emis').value)||0;
+  const paid      = emisPaid * emi;
+  const lender    = document.getElementById('l-lender').value.trim();
+  const startDate = document.getElementById('l-start').value;
+  const endDate   = window._loanEndDate || '';
   if(editLoanId){
     const l=S.loans.find(x=>x.id===editLoanId);
-    Object.assign(l,{name,total,paid,emi,rate,lender,date});saveData();toast('Loan updated');
+    Object.assign(l,{name,total,fee,paid,emi,rate,emisPaid,totalEmis,lender,startDate,date:endDate});
+    saveData();toast('Loan updated');
   } else {
-    S.loans.push({id:S.nLoan++,name,total,paid,emi,rate,lender,date});saveData();toast('Loan added');
+    S.loans.push({id:S.nLoan++,name,total,fee,paid,emi,rate,emisPaid,totalEmis,lender,startDate,date:endDate});
+    saveData();toast('Loan added');
   }
   closeModal('loan');renderLoans();
 }
 function delLoanFromModal(){if(!editLoanId)return;S.loans=S.loans.filter(l=>l.id!==editLoanId);closeModal('loan');renderLoans();saveData();toast('Loan removed');}
-function payEMI(id,e){e.stopPropagation();const l=S.loans.find(x=>x.id===id);if(!l)return;l.paid=Math.min(l.paid+l.emi,l.total);renderLoans();saveData();toast('EMI marked paid');}
+function payEMI(id,e){
+  e.stopPropagation();
+  const l=S.loans.find(x=>x.id===id);if(!l)return;
+  l.emisPaid=(l.emisPaid||0)+1;
+  l.paid=l.emisPaid*l.emi;
+  if(l.totalEmis&&l.emisPaid>=l.totalEmis) l.paid=l.total; // fully paid
+  renderLoans();saveData();
+  toast('EMI '+(l.emisPaid||'')+' marked paid');
+}
 function renderLoans(){
   const el=document.getElementById('loans-list');
   if(!S.loans.length){el.innerHTML=`<div class="empty-state glass" style="padding:44px"><p>No loans added</p><span>Track your EMIs and outstanding debt here</span></div>`;return;}
   el.innerHTML=S.loans.map(l=>{
-    const pct=l.total>0?Math.min(Math.round(l.paid/l.total*100),100):0;
-    const out=Math.max(l.total-l.paid,0);const monthsLeft=l.emi>0&&out>0?Math.ceil(out/l.emi):null;
+    // Recalculate paid from emisPaid if available
+    const calcPaid = (l.emisPaid!=null&&l.emi) ? l.emisPaid*l.emi : l.paid;
+    const pct=l.total>0?Math.min(Math.round(calcPaid/l.total*100),100):0;
+    const out=Math.max(l.total-calcPaid,0);const monthsLeft=l.emi>0&&out>0?Math.ceil(out/l.emi):null;
     return `<div class="gl-card glass glass-hover" onclick="openModal('loan',${l.id})" title="Click to edit">
       <div class="gl-card-hdr">
         <div class="gl-name">${l.name}</div>
@@ -1625,17 +2202,321 @@ function renderLoans(){
         <span>Outstanding: <strong style="color:var(--red)">₹${fmt(out)}</strong></span>
         ${l.rate?`<span>Rate: <strong>${l.rate}% p.a.</strong></span>`:''}
         ${l.emi?`<span>EMI: <strong>₹${fmt(l.emi)}/mo</strong></span>`:''}
+        ${l.emisPaid!=null?`<span>EMIs Paid: <strong>${l.emisPaid||0}${l.totalEmis?' / '+l.totalEmis:''}</strong></span>`:''}
+        ${l.fee?`<span>Processing Fee: <strong>₹${fmt(l.fee)}</strong></span>`:''}
+        ${l.startDate?`<span>From: <strong>${fmtDate(l.startDate)}</strong></span>`:''}
       </div>
       <div class="prog-wrap" style="margin-bottom:10px"><div class="prog-track" style="height:8px"><div style="width:${pct}%;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--blue),#a4e9ff);transition:width 0.6s ease;"></div></div><span class="prog-num">${pct}% repaid</span></div>
       <div class="gl-footer">
         <span style="font-size:12px;font-weight:700;color:var(--blue)">${pct}% repaid</span>
         ${monthsLeft?`<span style="font-size:12px;color:var(--muted)">~${monthsLeft} months remaining</span>`:''}
-        ${l.emi?`<button class="btn btn-ghost btn-sm" onclick="payEMI(${l.id},event)" style="border-color:var(--blue);color:var(--blue)">Mark EMI Paid</button>`:''}
+        ${l.emi?`<button class="btn btn-ghost btn-sm" onclick="payEMI(${l.id},event)" style="border-color:var(--blue);color:var(--blue)">Mark EMI Paid (${(l.emisPaid||0)+1})</button>`:''}
       </div>
     </div>`;
   }).join('');
 }
 
+
+// ══════════════════════════════════════
+// TRANSACTION MODE SWITCHING
+// ══════════════════════════════════════
+let txnMode = 'single';
+let bulkTxnRowCount = 0;
+
+function setTxnMode(mode){
+  txnMode = mode;
+  ['single','bulk','transfer'].forEach(m=>{
+    document.getElementById('txn-'+m+'-mode').style.display = m===mode ? 'block':'none';
+    const tab = document.getElementById('tab-'+m);
+    if(tab){
+      tab.style.background = m===mode ? 'var(--blue)':'transparent';
+      tab.style.color      = m===mode ? '#fff':'var(--muted)';
+    }
+  });
+  if(mode==='bulk') initBulkTxns();
+  if(mode==='transfer') initTransfer();
+}
+
+// ── Bulk Transactions ──
+function initBulkTxns(){
+  const accSel = document.getElementById('tb-acc-default');
+  if(accSel) accSel.innerHTML = S.accounts.map(a=>`<option value="${a.id}">${a.name}</option>`).join('');
+  const rows = document.getElementById('bulk-txn-rows');
+  rows.innerHTML='';
+  bulkTxnRowCount=0;
+  for(let i=0;i<5;i++) addBulkTxnRow();
+}
+
+function addBulkTxnRow(){
+  const container = document.getElementById('bulk-txn-rows');
+  const rid = ++bulkTxnRowCount;
+  const expCats = S.categories.filter(c=>c.type==='expense');
+  const incCats = S.categories.filter(c=>c.type==='income');
+  const catOpts = [
+    '<option value="">-- Category --</option>',
+    expCats.length?'<optgroup label="Expense">'+expCats.map(c=>`<option value="${c.id}|expense">${c.name}</option>`).join('')+'</optgroup>':'',
+    incCats.length?'<optgroup label="Income">'+incCats.map(c=>`<option value="${c.id}|income">${c.name}</option>`).join('')+'</optgroup>':'',
+  ].join('');
+  const today = new Date().toISOString().split('T')[0];
+  const iStyle = 'padding:6px 8px;border-radius:8px;border:1.5px solid rgba(74,100,180,0.14);font-size:12px;font-family:var(--font);outline:none;color:var(--ink);background:rgba(255,255,255,0.7);width:100%;';
+  const div=document.createElement('div');
+  div.id='btr-'+rid;
+  div.style.cssText='display:grid;grid-template-columns:110px 85px 100px 130px 1fr 28px;gap:5px;align-items:center;';
+  div.innerHTML=`
+    <input type="date" class="btr-date" value="${today}"
+      style="${iStyle}" onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='rgba(74,100,180,0.14)'">
+    <select class="btr-type"
+      style="${iStyle}">
+      <option value="expense">Expense</option>
+      <option value="income">Income</option>
+    </select>
+    <input type="number" class="btr-amt" placeholder="0.00" min="0" step="0.01"
+      style="${iStyle}" onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='rgba(74,100,180,0.14)'"
+      oninput="updateBulkTxnCount()">
+    <select class="btr-cat"
+      style="${iStyle}">
+      ${catOpts}
+    </select>
+    <input type="text" class="btr-desc" placeholder="Description"
+      style="${iStyle}" onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='rgba(74,100,180,0.14)'"
+      onkeydown="if(event.key==='Enter'){event.preventDefault();const rows=document.querySelectorAll('.btr-date');const arr=Array.from(rows);const idx=arr.indexOf(this.closest('div[id]').querySelector('.btr-date'));if(idx<arr.length-1){arr[idx+1].focus();}else{addBulkTxnRow();setTimeout(()=>document.querySelectorAll('.btr-date')[document.querySelectorAll('.btr-date').length-1].focus(),30);}}">
+    <button onclick="document.getElementById('btr-${rid}').remove();updateBulkTxnCount();"
+      style="background:none;border:none;color:var(--muted-2);cursor:pointer;font-size:15px;padding:3px;flex-shrink:0;"
+      onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--muted-2)'">✕</button>`;
+  container.appendChild(div);
+}
+
+function updateBulkTxnCount(){
+  const filled = Array.from(document.querySelectorAll('.btr-amt')).filter(i=>parseFloat(i.value)>0).length;
+  const el=document.getElementById('bulk-txn-count');
+  if(el) el.textContent = filled>0 ? filled+' transaction'+(filled===1?'':'s')+' ready':'';
+}
+
+function saveBulkTxns(){
+  const defAccId = parseInt(document.getElementById('tb-acc-default').value);
+  const acc = S.accounts.find(a=>a.id===defAccId);
+  const rows = document.querySelectorAll('#bulk-txn-rows > div');
+  let added=0, blocked=0;
+  rows.forEach(row=>{
+    const amt  = parseFloat(row.querySelector('.btr-amt')?.value)||0;
+    if(!amt) return;
+    const desc = row.querySelector('.btr-desc')?.value.trim()||'Transaction';
+    const type = row.querySelector('.btr-type')?.value||'expense';
+    const catVal= row.querySelector('.btr-cat')?.value||'';
+    const catId = catVal?parseInt(catVal.split('|')[0]):null;
+    const cat   = S.categories.find(c=>c.id===catId);
+    // Prevent negative balance
+    if(type==='expense' && acc && acc.balance - amt < 0){
+      blocked++;
+      return;
+    }
+    S.transactions.unshift({id:S.nTxn++,type,amount:amt,date,desc,
+      accId:defAccId,catId,catName:cat?.name,catIcon:'',catColor:cat?.color,accName:acc?.name});
+    if(acc) acc.balance += type==='income' ? amt : -amt;
+    added++;
+  });
+  saveData();
+  closeModal('txn');refreshDash();renderTxns();
+  let msg = added+' transaction'+(added===1?'':'s')+' added';
+  if(blocked) msg += ' ('+blocked+' blocked — would make account negative)';
+  toast(msg, blocked?'red':'');
+}
+
+// ── Transfer between accounts ──
+function initTransfer(){
+  const sel1=document.getElementById('tr-from');
+  const sel2=document.getElementById('tr-to');
+  if(!sel1||!sel2) return;
+  const opts = S.accounts.map(a=>`<option value="${a.id}">${a.name} (₹${fmt(a.balance)})</option>`).join('');
+  sel1.innerHTML=opts; sel2.innerHTML=opts;
+  if(S.accounts.length>1) sel2.selectedIndex=1;
+  document.getElementById('tr-date').value=new Date().toISOString().split('T')[0];
+}
+function checkTransferBalance(){
+  const fromId = parseInt(document.getElementById('tr-from').value);
+  const amt    = parseFloat(document.getElementById('tr-amt').value)||0;
+  const acc    = S.accounts.find(a=>a.id===fromId);
+  const warn   = document.getElementById('tr-balance-warn');
+  if(acc && amt > acc.balance){
+    warn.style.display='block';
+    warn.textContent='Insufficient balance in '+acc.name+'. Available: ₹'+fmt(acc.balance);
+  } else {
+    warn.style.display='none';
+  }
+}
+function saveTransfer(){
+  const fromId = parseInt(document.getElementById('tr-from').value);
+  const toId   = parseInt(document.getElementById('tr-to').value);
+  const amt    = parseFloat(document.getElementById('tr-amt').value)||0;
+  const date   = document.getElementById('tr-date').value;
+  const notes  = document.getElementById('tr-notes').value.trim();
+  if(!amt||amt<=0){toast('Enter a valid amount','red');return;}
+  if(!date){toast('Select a date','red');return;}
+  if(fromId===toId){toast('From and To accounts must be different','red');return;}
+  const fromAcc = S.accounts.find(a=>a.id===fromId);
+  const toAcc   = S.accounts.find(a=>a.id===toId);
+  if(!fromAcc||!toAcc){toast('Invalid accounts','red');return;}
+  if(fromAcc.balance < amt){toast('Insufficient balance in '+fromAcc.name,'red');return;}
+  // Create two transaction records
+  const desc = notes||'Transfer: '+fromAcc.name+' → '+toAcc.name;
+  S.transactions.unshift({id:S.nTxn++,type:'expense',amount:amt,date,desc,
+    accId:fromId,catId:null,catName:'Transfer Out',catIcon:'',catColor:'#4A90D9',accName:fromAcc.name,isTransfer:true});
+  S.transactions.unshift({id:S.nTxn++,type:'income',amount:amt,date,desc,
+    accId:toId,catId:null,catName:'Transfer In',catIcon:'',catColor:'#00A651',accName:toAcc.name,isTransfer:true});
+  fromAcc.balance -= amt;
+  toAcc.balance   += amt;
+  saveData();
+  closeModal('txn');refreshDash();renderTxns();renderAccounts();
+  toast('₹'+fmt(amt)+' transferred: '+fromAcc.name+' → '+toAcc.name);
+}
+
+
+// ══════════════════════════════════════
+// EMI / LOAN MONTHLY SUMMARY
+// ══════════════════════════════════════
+function populateEmiMonthSelector(){
+  const sel = document.getElementById('emi-month-sel');
+  if(!sel) return;
+  // Set default to current month if not already set
+  if(!sel.value){
+    const n = new Date();
+    sel.value = n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0');
+  }
+}
+
+function renderEmiSummary(){
+  populateEmiMonthSelector();
+  const sel   = document.getElementById('emi-month-sel');
+  const selYM = sel ? sel.value : (()=>{const n=new Date();return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0');})();
+  const [selY, selM] = selYM.split('-').map(Number);
+
+  // Even if no loans, fall through to show ₹0 KPIs
+
+  // Calculate for selected month
+  let totalEMI = 0, totalOut = 0, totalPaid = 0, activeLoans = 0;
+  const loanData = (S.loans||[]).map(l=>{
+    const emisPaid  = l.emisPaid||0;
+    const totalEmis = l.totalEmis||0;
+    const emi       = l.emi||0;
+    const paid      = emisPaid * emi;
+    const out       = Math.max(l.total - paid, 0);
+    const pct       = l.total>0 ? Math.min(Math.round(paid/l.total*100),100) : 0;
+
+    // Is this loan active in selected month?
+    let isActive = true;
+    if(l.startDate){
+      const [sy,sm] = l.startDate.split('-').map(Number);
+      if(selY < sy || (selY===sy && selM < sm)) isActive = false;
+    }
+    if(l.date){
+      const [ey,em] = l.date.split('-').map(Number);
+      if(selY > ey || (selY===ey && selM > em)) isActive = false;
+    }
+
+    // EMI number for selected month
+    let emiNumForMonth = null;
+    if(isActive && l.startDate){
+      const [sy,sm] = l.startDate.split('-').map(Number);
+      emiNumForMonth = (selY-sy)*12 + (selM-sm) + 1;
+      if(emiNumForMonth<=0 || (totalEmis&&emiNumForMonth>totalEmis)) isActive=false;
+    }
+
+    if(isActive){
+      totalEMI += emi;
+      totalOut += out;
+      totalPaid += paid;
+      activeLoans++;
+    }
+
+    return {l, paid, out, pct, isActive, emiNumForMonth, emi, totalEmis, emisPaid};
+  });
+
+  // KPI strip
+  const remaining = Math.max((S.loans&&loanData.length?loanData.reduce((s,d)=>s+d.l.total,0):0) - totalPaid, 0);
+  const strip = document.getElementById('emi-kpi-strip');
+  const selMonthLabel = new Date(selY, selM-1, 1).toLocaleString('default',{month:'long',year:'numeric'});
+  const totalPrincipal = S.loans ? loanData.reduce((s,d)=>s+d.l.total,0) : 0;
+  const kpis = [
+    {label:'Total EMI — '+selMonthLabel, val:'₹'+fmt(totalEMI), color:totalEMI>0?'var(--red)':'var(--muted)', sub:activeLoans>0?activeLoans+' active loan'+(activeLoans!==1?'s':''):'No active loans this month'},
+    {label:'Total Outstanding', val:'₹'+fmtK(remaining), color:remaining>0?'var(--ink)':'var(--green)', sub:remaining>0?'Across all loans':'All loans paid off'},
+    {label:'Total Principal', val:'₹'+fmtK(totalPrincipal), color:'var(--blue)', sub:'Total borrowed'},
+    {label:'Total Paid (all time)', val:'₹'+fmtK(totalPaid), color:totalPaid>0?'var(--green)':'var(--muted)', sub:'Principal repaid'},
+  ];
+  if(strip) strip.innerHTML = kpis.map(k=>`
+    <div style="padding:14px 16px;border-radius:12px;background:rgba(255,255,255,0.5);border:1px solid rgba(74,100,180,0.1);">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">${k.label}</div>
+      <div style="font-size:22px;font-weight:700;color:${k.color};letter-spacing:-0.015em;">${k.val}</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:3px;">${k.sub}</div>
+    </div>`).join('');
+
+  // Donut chart
+  killChart('emi-donut');
+  const ctx = document.getElementById('ch-emi-donut')?.getContext('2d');
+  const activeData = loanData.filter(d=>d.isActive&&d.emi>0);
+  if(ctx){
+    if(!S.loans||!S.loans.length||!activeData.length){
+      const noLabel = !S.loans||!S.loans.length ? 'No loans added' : 'No EMIs in '+selMonthLabel;
+      CH['emi-donut']=new Chart(ctx,{type:'doughnut',data:{labels:[noLabel],datasets:[{data:[1],backgroundColor:['rgba(74,100,180,0.08)']}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{labels:{color:'#9B9B9B',font:{family:FONT,size:12}}},tooltip:{enabled:false}}}});
+    } else {
+      const COLORS=['#C8102E','#4A90D9','#00A651','#F0AB00','#6B5B95','#e64a19','#0288d1','#7b1fa2'];
+      CH['emi-donut']=new Chart(ctx,{
+        type:'doughnut',
+        data:{
+          labels: activeData.map(d=>d.l.name),
+          datasets:[{data:activeData.map(d=>d.emi),backgroundColor:activeData.map((_,i)=>COLORS[i%COLORS.length]+'CC'),borderWidth:0,hoverOffset:8}]
+        },
+        options:{
+          responsive:true,maintainAspectRatio:false,cutout:'62%',
+          plugins:{
+            legend:{position:'bottom',labels:{color:'#6B6B6B',font:{family:FONT,size:11},padding:10,usePointStyle:true,pointStyleWidth:7}},
+            tooltip:{backgroundColor:'rgba(10,10,40,0.88)',bodyFont:{family:FONT,size:12},padding:12,cornerRadius:10}
+          }
+        }
+      });
+    }
+  }
+
+  // Loan rows table
+  const COLORS=['#C8102E','#4A90D9','#00A651','#F0AB00','#6B5B95','#e64a19','#0288d1','#7b1fa2'];
+  const rowsEl = document.getElementById('emi-loan-rows');
+  if(!rowsEl) return;
+  if(!S.loans||!S.loans.length){
+    rowsEl.innerHTML=`<div style="padding:20px;text-align:center;color:var(--muted);font-size:13px;">No loans added yet. <span style="color:var(--blue);cursor:pointer;font-weight:600" onclick="showPage('loans',null)">Add a loan →</span></div>`;
+    return;
+  }
+  rowsEl.innerHTML = loanData.map((d,i)=>{
+    const {l, paid, out, pct, isActive, emiNumForMonth, emi, totalEmis, emisPaid} = d;
+    const color = COLORS[i%COLORS.length];
+    const status = !isActive ? 'Inactive' : pct>=100 ? 'Paid off' : 'Active';
+    const statusColor = pct>=100?'var(--green)':!isActive?'var(--muted)':'var(--blue)';
+    return `
+      <div style="padding:12px 14px;border-radius:12px;background:rgba(255,255,255,0.55);border:1.5px solid rgba(74,100,180,0.1);transition:all 0.18s;"
+        onmouseover="this.style.borderColor='${color}33';this.style.background='rgba(255,255,255,0.85)'"
+        onmouseout="this.style.borderColor='rgba(74,100,180,0.1)';this.style.background='rgba(255,255,255,0.55)'">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:${color};flex-shrink:0;"></div>
+            <span style="font-size:13px;font-weight:700;color:var(--ink)">${l.name}</span>
+            ${l.lender?`<span style="font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;">${l.lender}</span>`:''}
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            ${isActive&&emi?`<span style="font-size:13px;font-weight:700;color:${color}">₹${fmt(emi)}/mo</span>`:''}
+            <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:${statusColor}15;color:${statusColor}">${status}</span>
+          </div>
+        </div>
+        <div style="height:5px;background:rgba(74,100,180,0.1);border-radius:99px;overflow:hidden;margin-bottom:7px;">
+          <div style="height:100%;width:${pct}%;border-radius:99px;background:${color};transition:width 0.7s;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);flex-wrap:wrap;gap:4px;">
+          <span>Paid: <strong style="color:var(--ink)">₹${fmtK(paid)}</strong></span>
+          <span>Outstanding: <strong style="color:var(--red)">₹${fmtK(out)}</strong></span>
+          <span>EMIs: <strong style="color:var(--ink)">${emisPaid}${totalEmis?' / '+totalEmis:''}</strong></span>
+          ${emiNumForMonth?`<span>This month: <strong style="color:${color}">EMI #${emiNumForMonth}</strong></span>`:''}
+          <span style="color:${color};font-weight:700">${pct}% repaid</span>
+        </div>
+      </div>`;
+  }).join('');
+}
 // ══════════════════════════════════════
 // DASHBOARD
 // ══════════════════════════════════════
@@ -1654,6 +2535,7 @@ function refreshDash(){
   document.getElementById('hs-rate').textContent=rate+'%';
   renderAccounts();renderDashBudgets();
   renderDashAccBalances();
+  renderEmiSummary();
   renderSavingsRule(inc,exp);
   const dtbody=document.getElementById('dash-txns');
   if(dtbody)dtbody.innerHTML=S.transactions.slice(0,8).map(t=>`<tr onclick="openModal('txn',${t.id})" title="Click to edit">
@@ -2187,6 +3069,60 @@ function fmtDate(d){if(!d)return'';const dt=new Date(d+'T00:00:00');return dt.to
 function hexA(hex,alpha=1){if(!hex||!hex.startsWith('#'))return`rgba(74,100,180,${alpha})`;const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return`rgba(${r},${g},${b},${alpha})`;}
 let toastTimer;
 function toast(msg,cls=''){const el=document.getElementById('toast');el.textContent='';el.className='toast'+(cls?' '+cls:'');el.textContent=msg;clearTimeout(toastTimer);requestAnimationFrame(()=>el.classList.add('show'));toastTimer=setTimeout(()=>el.classList.remove('show'),3000);}
+
+// ══════════════════════════════════════
+// THEME TOGGLE — dark / light
+// ══════════════════════════════════════
+function toggleTheme(isDark) {
+  const root = document.documentElement;
+  if (isDark) {
+    root.classList.add('dark');
+    localStorage.setItem('fintrack_theme', 'dark');
+  } else {
+    root.classList.remove('dark');
+    localStorage.setItem('fintrack_theme', 'light');
+  }
+  // Re-render all charts so colours update
+  setTimeout(() => {
+    if (typeof refreshDash === 'function' && document.getElementById('page-dashboard')?.classList.contains('active')) {
+      renderBarChart();
+      renderDonutChart();
+    }
+    if (document.getElementById('page-analytics')?.classList.contains('active')) {
+      renderLineChart();
+      renderAccPie();
+    }
+    if (document.getElementById('page-budgets')?.classList.contains('active')) {
+      renderBgtCharts();
+    }
+    if (typeof renderEmiSummary === 'function') {
+      killChart('emi-donut');
+      renderEmiSummary();
+    }
+  }, 320); // wait for transition to finish
+}
+
+// Apply saved theme on page load (before user signs in)
+(function applyThemeOnLoad() {
+  const saved = localStorage.getItem('fintrack_theme');
+  // Default to light mode; user must opt into dark
+  const prefersDark = saved === 'dark' ||
+    (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (prefersDark) {
+    document.documentElement.classList.add('dark');
+    // Set checkbox when it exists
+    const chk = document.getElementById('theme-chk');
+    if (chk) chk.checked = true;
+  }
+})();
+
+// Also sync checkbox state after sign-in (DOM is already rendered)
+function syncThemeToggle() {
+  const chk = document.getElementById('theme-chk');
+  if (chk) {
+    chk.checked = document.documentElement.classList.contains('dark');
+  }
+}
 </script>
 </body>
 </html>
