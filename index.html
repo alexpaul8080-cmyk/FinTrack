@@ -3142,11 +3142,17 @@ function exportAll(){
   [...S.transactions].sort((a,b)=>a.date.localeCompare(b.date)).forEach((t,i)=>{
     runBal += t.type==='income' ? t.amount : -t.amount;
     const day = (() => { try{ return new Date(t.date+'T00:00:00').toLocaleDateString('en-IN',{weekday:'short'}); }catch(e){ return ''; } })();
+    // Always look up category live — catName on the txn may be stale or missing
+    const liveCat = S.categories.find(cc=>cc.id===t.catId);
+    const catName = liveCat?.name || t.catName || '—';
+    const catType = liveCat?.type || t.type || '';
+    // Always look up account live too
+    const liveAcc = S.accounts.find(aa=>aa.id===t.accId);
+    const accName = liveAcc?.name || t.accName || '—';
     txnRows.push([
       i+1, t.date, day, t.type, t.amount,
-      t.desc||'', t.catName||'—',
-      S.categories.find(cc=>cc.id===t.catId)?.type||'',
-      t.accName||'—', Math.round(runBal*100)/100
+      t.desc||'', catName, catType, accName,
+      Math.round(runBal*100)/100
     ]);
   });
   const wsTxn = XLSX.utils.aoa_to_sheet(txnRows);
