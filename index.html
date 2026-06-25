@@ -3222,21 +3222,27 @@ function exportAll(){
   XLSX.utils.book_append_sheet(wb, wsLoan, 'Loans & EMI');
 
   // ════════════════════════════════
-  // SHEET 7 — CATEGORIES
+  // SHEET 7 — CATEGORIES (ALL, including unused)
   // ════════════════════════════════
-  const catRows = [['#','Category Name','Type','All-Time Amount (₹)','This Month (₹)','No. of Transactions','Last Used','Has Budget','Budget Limit (₹)']];
-  S.categories.forEach((cat,i)=>{
-    const txns   = S.transactions.filter(t=>t.catId===cat.id);
-    const total  = txns.reduce((s,t)=>s+t.amount,0);
-    const mAmt   = txns.filter(t=>t.date.startsWith(ym)).reduce((s,t)=>s+t.amount,0);
-    const sorted = [...txns].sort((a,b)=>b.date.localeCompare(a.date));
-    const last   = sorted.length?sorted[0].date:'Never';
-    const budget = S.budgets.find(b=>b.catId===cat.id);
-    catRows.push([i+1,cat.name,cat.type,total,mAmt,txns.length,last,budget?'Yes':'No',budget?budget.amount:'']);
+  const catRows = [['#','Category Name','Type','Color','All-Time Amount (₹)','This Month (₹)','No. of Transactions','Last Used','Has Budget','Budget Limit (₹)']];
+  // Sort: expense first, then income; within each type alphabetically
+  const sortedCats = [...S.categories].sort((a,b)=>{
+    if(a.type!==b.type) return a.type==='expense'?-1:1;
+    return a.name.localeCompare(b.name);
   });
-  if(!S.categories.length) catRows.push(['No categories','','','','','','','','']);
+  sortedCats.forEach((cat,i)=>{
+    const txns   = S.transactions.filter(tx=>tx.catId===cat.id);
+    const total  = txns.reduce((s,tx)=>s+tx.amount,0);
+    const mAmt   = txns.filter(tx=>tx.date.startsWith(ym)).reduce((s,tx)=>s+tx.amount,0);
+    const sorted2= [...txns].sort((a,b)=>b.date.localeCompare(a.date));
+    const last   = sorted2.length?sorted2[0].date:'Never used';
+    const budget = S.budgets.find(b=>b.catId===cat.id);
+    // ALL categories exported — no filtering by usage
+    catRows.push([i+1, cat.name, cat.type, cat.color||'', total, mAmt, txns.length, last, budget?'Yes':'No', budget?budget.amount:'']);
+  });
+  if(!S.categories.length) catRows.push(['No categories added yet','','','','','','','','','']);
   const wsCat = XLSX.utils.aoa_to_sheet(catRows);
-  wsCat['!cols'] = [{wch:4},{wch:28},{wch:10},{wch:20},{wch:16},{wch:20},{wch:14},{wch:12},{wch:16}];
+  wsCat['!cols'] = [{wch:4},{wch:28},{wch:10},{wch:10},{wch:20},{wch:16},{wch:20},{wch:14},{wch:12},{wch:16}];
   XLSX.utils.book_append_sheet(wb, wsCat, 'Categories');
 
   // ════════════════════════════════
@@ -3303,7 +3309,7 @@ function exportAll(){
     S.loans.length+' loans',
     S.categories.length+' categories',
   ];
-  toast('✓ Exported '+parts.join(' · '));
+  toast('✓ Exported 9 sheets — '+parts.join(' · '));
 }
 
 function exportTransactionsOnly(){
@@ -3325,21 +3331,24 @@ function renderExportChecklist(){
   const sum = document.getElementById('export-summary');
   if(!el) return;
   const items = [
-    {label:'Transactions', count:S.transactions.length, sheet:'Transactions'},
-    {label:'Account Balances', count:S.accounts.length, sheet:'Account Balances'},
-    {label:'Budgets', count:S.budgets.length, sheet:'Budgets'},
-    {label:'Savings Goals', count:S.goals.length, sheet:'Goals'},
-    {label:'Loans & EMIs', count:S.loans.length, sheet:'Loans'},
-    {label:'Category Summary', count:S.categories.length, sheet:'Category Summary'},
-    {label:'Overall Summary', count:1, sheet:'Summary'},
+    {label:'Summary',               count:1,                      sheet:'Sheet 1'},
+    {label:'Transactions',          count:S.transactions.length,  sheet:'Sheet 2'},
+    {label:'Accounts',              count:S.accounts.length,      sheet:'Sheet 3'},
+    {label:'Budgets',               count:S.budgets.length,       sheet:'Sheet 4'},
+    {label:'Goals',                 count:S.goals.length,         sheet:'Sheet 5'},
+    {label:'Loans & EMI',           count:S.loans.length,         sheet:'Sheet 6'},
+    {label:'Categories',            count:S.categories.length,    sheet:'Sheet 7'},
+    {label:'Monthly Breakdown',     count:12,                     sheet:'Sheet 8'},
+    {label:'Category × Month',      count:S.categories.filter(cat=>S.transactions.some(t=>t.catId===cat.id&&t.type==='expense')).length, sheet:'Sheet 9'},
   ];
-  if(sum) sum.textContent = S.transactions.length+' transactions · '+S.accounts.length+' accounts';
+  const totalItems = S.transactions.length+S.accounts.length+S.budgets.length+S.goals.length+S.loans.length+S.categories.length;
+  if(sum) sum.textContent = '9 sheets · '+totalItems+' records';
   el.innerHTML = items.map(it=>`
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(74,100,180,0.07);">
-      <span style="font-weight:500">${it.label}</span>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(200,200,200,0.07);">
+      <span style="font-weight:500;color:var(--ink)">${it.label}</span>
       <div style="display:flex;align-items:center;gap:8px;">
         <span style="font-size:11px;color:var(--muted)">${it.count} record${it.count!==1?'s':''}</span>
-        <span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:999px;background:rgba(74,100,180,0.1);color:var(--blue)">${it.sheet}</span>
+        <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;background:rgba(200,200,200,0.10);color:var(--muted)">${it.sheet}</span>
       </div>
     </div>`).join('');
 }
